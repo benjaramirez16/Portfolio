@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <div class="spotlight"></div>
     <header class="header">
         <div class="header__container">
             <a href="#hero" class="header__logo">Benjamín Ramírez</a>
@@ -30,13 +31,15 @@
     <main>
         <section id="hero" class="hero">
             <div class="hero__container">
-                <h1 class="hero__title">Desarrollador Web Frontend</h1>
-                <p class="hero__subtitle">Creando soluciones digitales, funcionales y atractivas con un enfoque en la calidad y el rendimiento.</p>
-                <a href="#proyectos" class="button button--primary">Ver mis Proyectos</a>
+                <h1 class="hero__title" aria-label="Desarrollador Web Frontend">
+                    <span class="typing-text"></span><span class="cursor">&nbsp;</span>
+                </h1>
+                <p class="hero__subtitle hero-element-hidden">Creando soluciones digitales, funcionales y atractivas con un enfoque en la calidad y el rendimiento.</p>
+                <a href="#proyectos" class="button button--primary hero-element-hidden">Ver mis Proyectos</a>
             </div>
         </section>
 
-        <section id="sobre-mi" class="about-me section-padding">
+        <section id="sobre-mi" class="about-me section-padding hidden">
             <div class="about-me__container">
                 <div class="about-me__content">
                     <h2 class="section-title">Sobre Mí</h2>
@@ -55,7 +58,7 @@
             </div>
         </section>
 
-        <section id="habilidades" class="skills section-padding">
+        <section id="habilidades" class="skills section-padding hidden">
             <div class="skills__container">
                 <h2 class="section-title">Mis Habilidades</h2>
                 <div class="skills__grid">
@@ -95,7 +98,7 @@
             </div>
         </section>
 
-        <section id="proyectos" class="projects section-padding">
+        <section id="proyectos" class="projects section-padding hidden">
             <div class="projects__container">
                 <h2 class="section-title">Mis Proyectos</h2>
                 <article class="project-card">
@@ -127,7 +130,7 @@
                 </article>
             </div>
         </section>
-        <section id="contacto" class="contact section-padding">
+        <section id="contacto" class="contact section-padding hidden">
             <div class="contact__container">
                 <h2 class="section-title">Hablemos</h2>
                 <p class="contact__description">
@@ -156,7 +159,7 @@
         <div class="footer__container">
             <ul class="footer__social-list">
                 <li class="footer__social-item">
-                    <a href="#" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Visita mi perfil de GitHub">
+                    <a href="https://github.com/benjaramirez16" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Visita mi perfil de GitHub">
                         <i class="fa-brands fa-github"></i>
                     </a>
                 </li>

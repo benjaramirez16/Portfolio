@@ -26,6 +26,18 @@
     }
 }
 
+// Animaciones de Scroll
+.hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 // Ajuste para el centrado en móvil
 @media (max-width: 768px) {
     .section-title {

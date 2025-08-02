@@ -28,3 +28,38 @@
         margin-bottom: $spacing-unit * 2.5;
     }
 }
+
+// Estilos para el efecto de máquina de escribir
+.hero__title {
+    // Aseguramos que el h1 mantenga el espacio vertical mientras se escribe
+    min-height: 4.2rem; 
+}
+
+.cursor {
+    display: inline-block;
+    background-color: $color-primary;
+    width: 4px;
+    animation: blink 1s infinite;
+}
+
+// Animación del parpadeo
+@keyframes blink {
+    0%, 100% {
+        background-color: $color-primary;
+    }
+    50% {
+        background-color: transparent;
+    }
+}
+
+// Estilos para la animación secuencial del Hero
+.hero-element-hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
+}
+
+.hero-element-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

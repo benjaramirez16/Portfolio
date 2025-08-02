@@ -15,7 +15,7 @@
 <body>
     <header class="header">
         <div class="header__container">
-            <a href="#" class="header__logo">Benjamín Ramírez</a>
+            <a href="#hero" class="header__logo">Benjamín Ramírez</a>
             <nav class="nav">
                 <ul class="nav__list">
                     <li class="nav__item"><a href="#sobre-mi" class="nav__link">Sobre Mí</a></li>
@@ -35,55 +35,142 @@
                 <a href="#proyectos" class="button button--primary">Ver mis Proyectos</a>
             </div>
         </section>
-        <section id="habilidades" class="skills section-padding">
-        <div class="skills__container">
-            <h2 class="section-title">Mis Habilidades</h2>
-            <div class="skills__grid">
-                <div class="skill-card">
-                    <i class="fa-brands fa-html5 skill-card__icon"></i>
-                    <p class="skill-card__name">HTML5</p>
+
+        <section id="sobre-mi" class="about-me section-padding">
+            <div class="about-me__container">
+                <div class="about-me__content">
+                    <h2 class="section-title">Sobre Mí</h2>
+                    <p>
+                        ¡Hola! Soy Benjamín Ramírez, un apasionado desarrollador web enfocado en el Frontend. Mi viaje en el mundo de la programación comenzó con el deseo de transformar ideas creativas en experiencias digitales interactivas y funcionales.
+                    </p>
+                    <p>
+                        Con una base sólida en tecnologías como HTML, CSS, SASS y JavaScript, disfruto construyendo interfaces limpias, accesibles y de alto rendimiento. Mi objetivo es aportar valor a través de un código de calidad y una mentalidad de aprendizaje continuo, buscando siempre el siguiente desafío para crecer como profesional.
+                    </p>
                 </div>
-                <div class="skill-card">
-                    <i class="fa-brands fa-css3-alt skill-card__icon"></i>
-                    <p class="skill-card__name">CSS3</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-brands fa-sass skill-card__icon"></i>
-                    <p class="skill-card__name">SASS</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-brands fa-js skill-card__icon"></i>
-                    <p class="skill-card__name">JavaScript</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-brands fa-git-alt skill-card__icon"></i>
-                    <p class="skill-card__name">Git</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fa-brands fa-github skill-card__icon"></i>
-                    <p class="skill-card__name">GitHub</p>
+                <div class="about-me__image">
+                    <div class="about-me__logo">
+                        <span class="logo__initials">BR</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section id="habilidades" class="skills section-padding">
+            <div class="skills__container">
+                <h2 class="section-title">Mis Habilidades</h2>
+                <div class="skills__grid">
+                    <div class="skill-card">
+                        <i class="fa-brands fa-html5 skill-card__icon"></i>
+                        <p class="skill-card__name">HTML5</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-css3-alt skill-card__icon"></i>
+                        <p class="skill-card__name">CSS3</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-sass skill-card__icon"></i>
+                        <p class="skill-card__name">SASS</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-js skill-card__icon"></i>
+                        <p class="skill-card__name">JavaScript</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-git-alt skill-card__icon"></i>
+                        <p class="skill-card__name">Git</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-brands fa-github skill-card__icon"></i>
+                        <p class="skill-card__name">GitHub</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-solid fa-mobile-screen-button skill-card__icon"></i>
+                        <p class="skill-card__name">Responsive</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fa-solid fa-universal-access skill-card__icon"></i>
+                        <p class="skill-card__name">Accesibilidad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="projects section-padding">
+            <div class="projects__container">
+                <h2 class="section-title">Mis Proyectos</h2>
+                <article class="project-card">
+                    <div class="project-card__image">
+                        <a href="https://nudosdelalma.rf.gd/" target="_blank" rel="noopener noreferrer">
+                            <img src="images/nudos-del-alma.jpg" alt="Captura de pantalla del proyecto Nudos Del Alma">
+                        </a>
+                    </div>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">Nudos Del Alma</h3>
+                        <p class="project-card__description">
+                            Una landing page totalmente responsiva para un emprendimiento de macramé. Construida con un enfoque en la semántica HTML, una arquitectura SASS profesional y un código JavaScript limpio para las interacciones.
+                        </p>
+                        <ul class="project-card__tech-list">
+                            <li class="project-card__tech-item">HTML</li>
+                            <li class="project-card__tech-item">SASS</li>
+                            <li class="project-card__tech-item">JavaScript</li>
+                            <li class="project-card__tech-item">Git</li>
+                        </ul>
+                        <div class="project-card__links">
+                            <a href="https://nudosdelalma.rf.gd/" class="button button--secondary" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Sitio
+                            </a>
+                            <a href="https://github.com/benjaramirez16/nudos-del-alma-website" class="button button--secondary" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-github"></i> Ver Código
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="contacto" class="contact section-padding">
+            <div class="contact__container">
+                <h2 class="section-title">Hablemos</h2>
+                <p class="contact__description">
+                    ¿Tienes una pregunta o una propuesta, o simplemente quieres saludar? Adelante.
+                </p>
+                
+                <form action="https://formspree.io/f/mrblabwp" method="POST" class="contact__form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Mensaje</label>
+                        <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="button button--primary">Enviar Mensaje</button>
+                </form>
+            </div>
         </section>
     </main>
-    <section id="sobre-mi" class="about-me section-padding">
-    <div class="about-me__container">
-        <div class="about-me__content">
-            <h2 class="section-title">Sobre Mí</h2>
-            <p>
-                ¡Hola! Soy Benjamín Ramírez, un apasionado desarrollador web enfocado en el Frontend. Mi viaje en el mundo de la programación comenzó con el deseo de transformar ideas creativas en experiencias digitales interactivas y funcionales.
-            </p>
-            <p>
-                Con una base sólida en tecnologías como HTML, CSS, SASS y JavaScript, disfruto construyendo interfaces limpias, accesibles y de alto rendimiento. Mi objetivo es aportar valor a través de un código de calidad y una mentalidad de aprendizaje continuo, buscando siempre el siguiente desafío para crecer como profesional.
+    <footer class="footer">
+        <div class="footer__container">
+            <ul class="footer__social-list">
+                <li class="footer__social-item">
+                    <a href="#" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Visita mi perfil de GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </li>
+                <li class="footer__social-item">
+                    <a href="#" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Visita mi perfil de LinkedIn">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                </li>
+                </ul>
+            <p class="footer__copyright">
+                &copy; 2025 Benjamín Ramírez. Todos los derechos reservados.
             </p>
         </div>
-        <div class="about-me__image">
-            <div class="about-me__logo">
-                <span class="logo__initials">BR</span>
-            </div>
-    </div>
-    </section>
+    </footer>
     <script src="js/script.js" defer></script>
 </body>
 </html>

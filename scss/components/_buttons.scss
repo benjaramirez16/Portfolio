@@ -20,4 +20,14 @@
             color: $color-primary;
         }
     }
+    &--secondary {
+        background-color: transparent;
+        color: $color-text-secondary;
+        border-color: $color-surface;
+
+        &:hover {
+            color: $color-primary;
+            border-color: $color-primary;
+        }
+    }
 }

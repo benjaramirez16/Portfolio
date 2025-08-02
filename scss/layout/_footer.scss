@@ -1,0 +1,33 @@
+.footer {
+    background-color: $color-surface;
+    padding: ($spacing-unit * 3) ($spacing-unit * 2);
+    text-align: center;
+    border-top: 1px solid darken($color-surface, 5%);
+
+    &__social-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 $spacing-unit * 1.5;
+        display: flex;
+        justify-content: center;
+        gap: $spacing-unit * 2.5;
+    }
+
+    &__social-link {
+        color: $color-text-secondary;
+        font-size: 1.75rem;
+        transition: color 0.3s ease, transform 0.3s ease;
+        display: inline-block; // Permite que la transformación funcione correctamente
+
+        &:hover {
+            color: $color-primary;
+            transform: translateY(-3px);
+        }
+    }
+
+    &__copyright {
+        margin: 0;
+        color: $color-text-secondary;
+        font-size: 0.9rem;
+    }
+}

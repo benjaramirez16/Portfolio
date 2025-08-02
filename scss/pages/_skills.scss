@@ -9,8 +9,7 @@
 
     &__grid {
         display: grid;
-        // Crea columnas de al menos 120px. Se ajustarán automáticamente.
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(4, 1fr); 
         gap: $spacing-unit * 2.5;
         margin-top: $spacing-unit * 4;
     }
@@ -42,5 +41,13 @@
     &:hover {
         transform: translateY(-5px);
         border-color: $color-primary;
+    }
+}
+
+// 2. MEDIA QUERY PARA RESPONSIVIDAD
+@media (max-width: 992px) {
+    .skills__grid {
+        // En pantallas más pequeñas, cambiamos a 2 columnas.
+        grid-template-columns: repeat(2, 1fr);
     }
 }

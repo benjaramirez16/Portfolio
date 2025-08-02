@@ -48,7 +48,8 @@ body {
   top: 0;
   pointer-events: none;
   z-index: 10000;
-  transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  opacity: 0;
+  transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.3s ease-out;
 }
 .cursor.hovered {
   width: 50px;
@@ -100,6 +101,31 @@ body {
   .section-title::after {
     left: 50%;
     transform: translateX(-50%);
+  }
+}
+.section-title {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(to right, transparent 0%, rgba(0, 168, 232, 0.2) 50%, transparent 100%);
+  transform: skewX(-25deg) translateX(-150px);
+}
+
+.title-sweep-animation::after {
+  animation: sweep 0.8s ease-in-out;
+}
+
+@keyframes sweep {
+  100% {
+    transform: skewX(-25deg) translateX(500px);
   }
 }
 .button {
@@ -180,6 +206,26 @@ body {
 .nav__link.active {
   color: #00A8E8;
   font-weight: 700;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background-color: #00A8E8;
+  z-index: 1001;
+  box-shadow: 0 0 10px #00A8E8;
+}
+
+@keyframes pulse-effect {
+  50% {
+    box-shadow: 0 0 20px rgba(0, 168, 232, 0.8);
+  }
+}
+.progress-bar--completed {
+  animation: pulse-effect 0.8s ease-out 1;
 }
 
 .footer {

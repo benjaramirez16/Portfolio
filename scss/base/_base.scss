@@ -46,6 +46,7 @@ body {
 }
 
 // Estilos para nuestro cursor personalizado
+
 .cursor {
   width: 20px;
   height: 20px;
@@ -54,11 +55,13 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  pointer-events: none; // Impide que el cursor bloquee clics
-  z-index: 10000; // Por encima de todo
-  transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0; 
+  
+  // AÑADE 'opacity' A LA TRANSICIÓN PARA QUE APAREZCA SUAVEMENTE
+  transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.3s ease-out;
 
-  // Estado "hover": cuando pase sobre un enlace
   &.hovered {
     width: 50px;
     height: 50px;

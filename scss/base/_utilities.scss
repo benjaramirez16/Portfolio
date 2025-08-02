@@ -47,3 +47,37 @@
         }
     }
 }
+
+// Animación de barrido "Tron" para títulos
+.section-title {
+  position: relative; // Necesario para posicionar el pseudo-elemento
+  overflow: hidden;   // Necesario para contener el barrido
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px; // Ancho del barrido de luz
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba($color-primary, 0.2) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg) translateX(-150px); // Lo inclina y lo posiciona fuera de la pantalla a la izquierda
+}
+
+// Clase que dispara la animación
+.title-sweep-animation::after {
+  animation: sweep 0.8s ease-in-out;
+}
+
+// Definición de la animación
+@keyframes sweep {
+  100% {
+    transform: skewX(-25deg) translateX(500px); // Lo mueve fuera de la pantalla a la derecha
+  }
+}

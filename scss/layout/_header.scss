@@ -52,3 +52,28 @@
         }
     }
 }
+
+// Estilos para la barra de progreso
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%; // Comienza sin ancho
+  background-color: $color-primary;
+  z-index: 1001; // Por encima del resto del header
+  box-shadow: 0 0 10px $color-primary;
+}
+
+// 1. Definimos la animación del pulso
+@keyframes pulse-effect {
+  50% {
+    box-shadow: 0 0 20px rgba($color-primary, 0.8);
+  }
+}
+
+// 2. Creamos una clase para aplicar la animación
+.progress-bar--completed {
+  // nombre-animación | duración | curva-tiempo | cuenta-repeticiones
+  animation: pulse-effect 0.8s ease-out 1;
+}

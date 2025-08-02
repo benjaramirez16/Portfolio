@@ -39,3 +39,36 @@ body {
     display: none;
   }
 }
+
+// Ocultamos el cursor por defecto en todo el body
+body {
+  cursor: none;
+}
+
+// Estilos para nuestro cursor personalizado
+.cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $color-primary;
+  border-radius: 50%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none; // Impide que el cursor bloquee clics
+  z-index: 10000; // Por encima de todo
+  transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+
+  // Estado "hover": cuando pase sobre un enlace
+  &.hovered {
+    width: 50px;
+    height: 50px;
+    background-color: rgba($color-primary, 0.2);
+  }
+}
+
+// Ocultamos nuestro cursor personalizado en dispositivos táctiles
+@media (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

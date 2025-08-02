@@ -1,0 +1,23 @@
+.button {
+    display: inline-block;
+    padding: ($spacing-unit * 0.8) ($spacing-unit * 2.5);
+    font-family: $font-secondary;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &--primary {
+        background-color: $color-primary;
+        color: $color-background;
+        border-color: $color-primary;
+
+        &:hover {
+            background-color: transparent;
+            color: $color-primary;
+        }
+    }
+}

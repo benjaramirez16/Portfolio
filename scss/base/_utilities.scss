@@ -1,0 +1,37 @@
+// Archivo para clases de utilidad reutilizables
+
+.section-padding {
+    padding: ($spacing-unit * 6) ($spacing-unit * 2);
+}
+
+.section-title {
+    font-family: $font-primary;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $color-primary;
+    margin-top: 0;
+    margin-bottom: $spacing-unit * 2.5;
+    position: relative;
+
+    // Un pequeño detalle de línea bajo el título
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background-color: $color-primary;
+        opacity: 0.5;
+    }
+}
+
+// Ajuste para el centrado en móvil
+@media (max-width: 768px) {
+    .section-title {
+        &::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

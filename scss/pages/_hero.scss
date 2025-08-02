@@ -1,0 +1,30 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    background-color: $color-background;
+    padding: $spacing-unit * 2;
+
+    &__container {
+        max-width: 800px;
+    }
+
+    &__title {
+        font-family: $font-primary;
+        font-size: 3.5rem; // Tamaño de fuente grande para impacto
+        font-weight: 700;
+        color: $color-text-primary;
+        margin-top: 0;
+        margin-bottom: $spacing-unit;
+    }
+
+    &__subtitle {
+        font-family: $font-secondary;
+        font-size: 1.25rem;
+        color: $color-text-secondary;
+        line-height: 1.6;
+        margin-bottom: $spacing-unit * 2.5;
+    }
+}

@@ -1,0 +1,72 @@
+.about-me {
+    background-color: $color-background;
+
+    &__container {
+        display: grid;
+        grid-template-columns: 2fr 1fr; // El contenido ocupa 2/3 y el logo 1/3
+        align-items: center;
+        gap: $spacing-unit * 5;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    &__content {
+        p {
+            font-family: $font-secondary;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: $color-text-secondary;
+
+            &:first-of-type {
+                color: $color-text-primary;
+            }
+        }
+    }
+
+    // --- NUEVOS ESTILOS PARA EL LOGO ---
+    &__logo {
+        width: 250px;
+        height: 250px;
+        background-color: $color-surface;
+        border-radius: 50%;
+        border: 3px solid $color-primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 80px rgba($color-primary, 0.1);
+        margin: 0 auto; // Centra el logo si la columna es más ancha
+    }
+}
+
+.logo__initials {
+    font-family: $font-primary;
+    font-size: 6rem;
+    font-weight: 700;
+    color: $color-primary;
+    text-shadow: 0 0 15px rgba($color-primary, 0.3);
+}
+// --- FIN DE NUEVOS ESTILOS ---
+
+
+// Media Query para Responsividad
+@media (max-width: 768px) {
+    .about-me__container {
+        grid-template-columns: 1fr; // Se convierte en una sola columna
+        text-align: center;
+    }
+
+    .about-me__image {
+        grid-row: 1; // Mueve el logo a la parte superior en móviles
+        margin-bottom: $spacing-unit * 3;
+    }
+
+    // --- AJUSTES RESPONSIVOS PARA EL LOGO ---
+    .about-me__logo {
+        width: 180px;
+        height: 180px;
+    }
+
+    .logo__initials {
+        font-size: 4rem;
+    }
+}

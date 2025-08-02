@@ -1,0 +1,19 @@
+// 1. Abstracts: Variables, mixins, funciones.
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// 2. Base styles: Resets, tipografía base, utilidades etc.
+@import 'base/base';
+@import 'base/utilities'; 
+
+// 3. Components: Elementos reutilizables como botones.
+@import 'components/buttons';
+
+// 4. Layout: Estructura principal como header y footer.
+@import 'layout/header';
+@import 'layout/footer';
+
+// 5. Pages: Estilos específicos de cada sección de la página.
+@import 'pages/hero';
+@import 'pages/about-me'; 
+@import 'pages/skills';

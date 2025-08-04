@@ -77,3 +77,90 @@
   // nombre-animación | duración | curva-tiempo | cuenta-repeticiones
   animation: pulse-effect 0.8s ease-out 1;
 }
+
+// Estilos para el menú de hamburguesa
+.nav-toggle {
+  display: none; // Oculto en desktop por defecto
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10000;
+  // Añadimos un poco de espacio para separarlo del borde
+  margin-right: $spacing-unit * 1.5; 
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    display: block;
+    background-color: $color-text-primary;
+    width: 25px;
+    height: 3px;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  // Posicionamos las líneas superior e inferior
+  .hamburger::before {
+    transform: translateY(-8px);
+  }
+
+  .hamburger::after {
+    transform: translateY(8px);
+  }
+}
+
+// Media Query para la vista móvil
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block; // Mostramos el botón hamburguesa
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+    
+    // Estilos del menú cuando está abierto
+    &.nav-open {
+      transform: translateX(0);
+    }
+  }
+
+  .nav__list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: $spacing-unit * 3;
+  }
+
+  .nav__link {
+    font-size: 1.5rem;
+  }
+
+  // --- NUEVA ANIMACIÓN A "X" ---
+  // Cuando el nav está abierto, aplicamos estos estilos al botón
+  .nav-open + .nav-toggle {
+    .hamburger {
+      // 1. La línea del medio se desvanece
+      background-color: transparent; 
+    }
+    .hamburger::before {
+      // 2. La línea de arriba se mueve al centro y rota
+      transform: translateY(0) rotate(45deg);
+    }
+    .hamburger::after {
+      // 3. La línea de abajo se mueve al centro y rota
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+}

@@ -69,9 +69,12 @@ body {
   }
 }
 
-// Ocultamos nuestro cursor personalizado en dispositivos táctiles
+// Ocultamos nuestros cursores en dispositivos táctiles
 @media (pointer: coarse) {
-  .cursor {
-    display: none;
+  body {
+    cursor: auto; // Restauramos el cursor por defecto del sistema
+  }
+  .cursor, .spotlight {
+    display: none; // Los ocultamos por completo
   }
 }

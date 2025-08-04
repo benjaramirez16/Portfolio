@@ -4,7 +4,7 @@
     justify-content: center;
     text-align: center;
     min-height: 100vh;
-    background-color: $color-background;
+    background-color: var(--color-background);
     padding: $spacing-unit * 2;
 
     &__container {
@@ -15,7 +15,7 @@
         font-family: $font-primary;
         font-size: 3.5rem; // Tamaño de fuente grande para impacto
         font-weight: 700;
-        color: $color-text-primary;
+        color: var(--color-text-primary);
         margin-top: 0;
         margin-bottom: $spacing-unit;
     }
@@ -23,7 +23,7 @@
     &__subtitle {
         font-family: $font-secondary;
         font-size: 1.25rem;
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
         line-height: 1.6;
         margin-bottom: $spacing-unit * 2.5;
     }
@@ -37,7 +37,7 @@
 
 .cursor {
     display: inline-block;
-    background-color: $color-primary;
+    background-color: var(--color-primary);
     width: 4px;
     animation: blink 1s infinite;
 }
@@ -45,7 +45,7 @@
 // Animación del parpadeo
 @keyframes blink {
     0%, 100% {
-        background-color: $color-primary;
+        background-color: var(--color-primary);
     }
     50% {
         background-color: transparent;

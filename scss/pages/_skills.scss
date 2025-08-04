@@ -1,5 +1,5 @@
 .skills {
-    background-color: $color-background;
+    background-color: var(--color-background);
     text-align: center;
 
     &__container {
@@ -16,7 +16,7 @@
 }
 
 .skill-card {
-    background-color: $color-surface;
+    background-color: 	var(--color-surface);
     border: 1px solid transparent;
     border-radius: 8px;
     padding: $spacing-unit * 2.5 $spacing-unit;
@@ -24,23 +24,23 @@
     flex-direction: column;
     align-items: center;
     gap: $spacing-unit * 1.5;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
     &__icon {
         font-size: 3.5rem;
-        color: $color-primary;
+        color: var(--color-primary);
     }
 
     &__name {
         font-family: $font-secondary;
         font-weight: 500;
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
         margin: 0;
     }
 
     &:hover {
         transform: translateY(-5px);
-        border-color: $color-primary;
+        border-color: var(--color-primary);
     }
 }
 

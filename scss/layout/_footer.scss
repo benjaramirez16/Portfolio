@@ -1,8 +1,9 @@
 .footer {
-    background-color: $color-surface;
+    background-color: var(--color-surface);
     padding: ($spacing-unit * 3) ($spacing-unit * 2);
     text-align: center;
-    border-top: 1px solid darken($color-surface, 5%);
+    border-top: 1px solid rgba(var(--color-text-primary-rgb), 0.1);
+    transition: background-color 0.3s ease;
 
     &__social-list {
         list-style: none;
@@ -14,20 +15,20 @@
     }
 
     &__social-link {
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
         font-size: 1.75rem;
         transition: color 0.3s ease, transform 0.3s ease;
-        display: inline-block; // Permite que la transformación funcione correctamente
+        display: inline-block;
 
         &:hover {
-            color: $color-primary;
+            color: var(--color-primary);
             transform: translateY(-3px);
         }
     }
 
     &__copyright {
         margin: 0;
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
         font-size: 0.9rem;
     }
 }

@@ -1,56 +1,73 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+//================================================
+// VARIABLES DE TEMA (CSS CUSTOM PROPERTIES)
+//================================================
+:root {
+  // TEMA OSCURO (Por defecto)
+  --color-background: #121212;
+  --color-surface: #1E1E1E;
+  --color-primary: #00A8E8;
+  --color-primary-rgb: 0, 168, 232;
+  --color-text-primary: #EAEAEA;
+  --color-text-primary-rgb: 234, 234, 234;
+  --color-text-secondary: #A8A8A8;
+  --color-header-bg-rgb: 18, 18, 18;
 }
 
-html {
-    scroll-behavior: smooth;
+html[data-theme='light'] {
+  // TEMA CLARO (MEJORADO)
+  --color-background: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-primary: #007BFF;
+  --color-primary-rgb: 0, 123, 255;
+  --color-text-primary: #212529;
+  --color-text-primary-rgb: 33, 37, 41;
+  --color-text-secondary: #6C757D;
+  --color-header-bg-rgb: 248, 249, 250;
+}
+
+
+//================================================
+// ESTILOS BASE Y GLOBALES
+//================================================
+*, *::before, *::after { 
+    box-sizing: border-box; 
+}
+
+html { 
+    scroll-behavior: smooth; 
 }
 
 body {
     margin: 0;
-    background-color: $color-background;
-    color: $color-text-primary;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
     font-family: $font-secondary;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: none; // Ocultamos el cursor por defecto
 }
 
-// Estilos para el efecto de cursor "spotlight"
+
+//================================================
+// LÓGICA DEL CURSOR Y SPOTLIGHT
+//================================================
 .spotlight {
   position: fixed;
-  // Lo posicionamos en la esquina superior izquierda por defecto
   left: 0;
   top: 0;
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba($color-primary, 0.08), transparent 50%);
+  background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.15), transparent 50%);
   pointer-events: none;
-  // Lo ocultamos al inicio para que aparezca suavemente
   opacity: 0;
-  // La transición ahora también afectará a la opacidad
   transition: transform 0.1s ease-out, opacity 0.3s ease-out;
   z-index: 9999;
 }
 
-// En dispositivos táctiles donde no hay cursor, lo ocultamos.
-@media (pointer: coarse) {
-  .spotlight {
-    display: none;
-  }
-}
-
-// Ocultamos el cursor por defecto en todo el body
-body {
-  cursor: none;
-}
-
-// Estilos para nuestro cursor personalizado
-
 .cursor {
   width: 20px;
   height: 20px;
-  border: 2px solid $color-primary;
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   position: fixed;
   left: 0;
@@ -58,23 +75,29 @@ body {
   pointer-events: none;
   z-index: 10000;
   opacity: 0; 
-  
-  // AÑADE 'opacity' A LA TRANSICIÓN PARA QUE APAREZCA SUAVEMENTE
   transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.3s ease-out;
 
   &.hovered {
     width: 50px;
     height: 50px;
-    background-color: rgba($color-primary, 0.2);
+    background-color: rgba(var(--color-primary-rgb), 0.2); 
   }
 }
 
-// Ocultamos nuestros cursores en dispositivos táctiles
+// Regla unificada para dispositivos táctiles
 @media (pointer: coarse) {
   body {
     cursor: auto; // Restauramos el cursor por defecto del sistema
   }
   .cursor, .spotlight {
-    display: none; // Los ocultamos por completo
+    display: none; // Ocultamos los cursores personalizados
   }
+}
+
+//================================================
+// ESTILOS DE SELECCIÓN DE TEXTO
+//================================================
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
 }

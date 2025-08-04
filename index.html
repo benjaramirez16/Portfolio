@@ -18,18 +18,30 @@
     <header class="header">
         <div class="header__container">
             <a href="#hero" class="header__logo magnetic" data-value="Benjamín Ramírez">Benjamín Ramírez</a>
-            <nav class="nav">
-                <ul class="nav__list">
-                    <li class="nav__item"><a href="#sobre-mi" class="nav__link">Sobre Mí</a></li>
-                    <li class="nav__item"><a href="#habilidades" class="nav__link">Habilidades</a></li>
-                    <li class="nav__item"><a href="#proyectos" class="nav__link">Proyectos</a></li>
-                    <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
-                </ul>
-            </nav>
-            <button class="nav-toggle" aria-label="Abrir menú">
-                <span class="hamburger"></span>
-            </button>
-            <div class="progress-bar"></div>
+
+            <div class="header__actions">
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#sobre-mi" class="nav__link">Sobre Mí</a></li>
+                        <li class="nav__item"><a href="#habilidades" class="nav__link">Habilidades</a></li>
+                        <li class="nav__item"><a href="#proyectos" class="nav__link">Proyectos</a></li>
+                        <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
+                    </ul>
+                </nav>
+
+                <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                    <i class="fa-solid fa-sun"></i>
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button class="nav-toggle" aria-label="Abrir menú">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
         </div>
     </header>
 
@@ -139,7 +151,7 @@
             <div class="contact__container">
                 <h2 class="section-title"><span>Hablemos</span></h2>
                 <p class="contact__description">
-                    ¿Tienes una pregunta o una propuesta, o simplemente quieres saludar? Adelante.
+                    ¿Tienes una pregunta o una propuesta o simplemente quieres saludar? Adelante.
                 </p>
                 
                 <form action="https://formspree.io/f/mrblabwp" method="POST" class="contact__form">

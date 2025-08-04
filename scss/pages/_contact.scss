@@ -1,6 +1,7 @@
 .contact {
-    background-color: $color-background;
+    background-color: var(--color-background);
     text-align: center;
+    transition: background-color 0.3s ease;
 
     &__container {
         max-width: 700px;
@@ -9,7 +10,7 @@
 
     &__description {
         font-size: 1.1rem;
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
         margin-bottom: $spacing-unit * 3;
     }
 }
@@ -28,27 +29,28 @@
     display: block;
     margin-bottom: $spacing-unit * 0.5;
     font-weight: 500;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
 }
 
 .form-input,
 .form-textarea {
     width: 100%;
     padding: $spacing-unit * 1.2;
-    background-color: $color-surface;
-    border: 1px solid darken($color-surface, 5%);
+    background-color: var(--color-surface);
+    // ESTA ES LA LÍNEA CORREGIDA:
+    border: 1px solid rgba(var(--color-text-primary-rgb), 0.1);
     border-radius: 5px;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     font-family: $font-secondary;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 
     &:focus {
         outline: none;
-        border-color: $color-primary;
+        border-color: var(--color-primary);
     }
 }
 
 .form-textarea {
-    resize: vertical; // Permite al usuario ajustar la altura
+    resize: vertical;
 }

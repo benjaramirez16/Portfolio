@@ -1,13 +1,13 @@
 .header {
-    background-color: rgba(18, 18, 18, 0.8);
+    background-color: rgba(var(--color-header-bg-rgb), 0.8);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid $color-surface;
-    padding: ($spacing-unit * 1.5) ($spacing-unit * 2);
+    padding: ($spacing-unit * 1.5) 0;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 
     &__container {
         display: flex;
@@ -15,14 +15,23 @@
         align-items: center;
         max-width: 1200px;
         margin: 0 auto;
+        padding: 0 ($spacing-unit * 2);
+        position: relative;
     }
 
     &__logo {
         font-family: $font-primary;
         font-weight: 700;
         font-size: 1.5rem;
-        color: $color-text-primary;
         text-decoration: none;
+        // Usamos el color de texto primario definido para cada tema
+        color: var(--color-text-primary);
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: $spacing-unit * 1.5;
     }
 }
 
@@ -37,44 +46,51 @@
 
     &__link {
         font-family: $font-secondary;
-        color: $color-text-secondary;
+        // Usamos el color de texto secundario para los enlaces inactivos
+        color: var(--color-text-secondary);
         text-decoration: none;
         font-weight: 500;
         transition: color 0.3s ease;
 
+        // El hover y el active ahora funcionarán perfectamente
         &:hover {
-            color: $color-primary;
+            color: var(--color-primary);
         }
 
         &.active {
-        color: $color-primary;
-        font-weight: 700; 
+            color: var(--color-primary);
+            font-weight: 700;
         }
     }
 }
 
-// Estilos para la barra de progreso
-.progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0%; // Comienza sin ancho
-  background-color: $color-primary;
-  z-index: 1001; // Por encima del resto del header
-  box-shadow: 0 0 10px $color-primary;
+// Estilos para el sistema de progreso con riel
+.progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; // Grosor del riel de fondo
+    background-color: rgba(var(--color-text-primary-rgb), 0.15); // Color del riel
 }
 
-// 1. Definimos la animación del pulso
+.progress-bar {
+    height: 100%; // La barra ocupa todo el alto del riel
+    width: 0%;
+    background-color: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+    transition: width 0.1s linear; // Una transición suave
+}
+
+// --- ANIMACIÓN DE PULSO  ---
 @keyframes pulse-effect {
   50% {
-    box-shadow: 0 0 20px rgba($color-primary, 0.8);
+    box-shadow: 0 0 20px var(--color-primary);
   }
 }
 
-// 2. Creamos una clase para aplicar la animación
+// Clase que se añade con JS cuando la barra llega al 100%
 .progress-bar--completed {
-  // nombre-animación | duración | curva-tiempo | cuenta-repeticiones
   animation: pulse-effect 0.8s ease-out 1;
 }
 
@@ -94,7 +110,7 @@
   .hamburger::after {
     content: '';
     display: block;
-    background-color: $color-text-primary;
+    background-color: var(--color-text-primary);
     width: 25px;
     height: 3px;
     border-radius: 2px;
@@ -162,5 +178,49 @@
       // 3. La línea de abajo se mueve al centro y rota
       transform: translateY(0) rotate(-45deg);
     }
+  }
+}
+
+// Estilos para el interruptor de tema
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    margin-right: $spacing-unit;
+
+    &:hover {
+        color: var(--color-primary);
+        background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+
+    // Por defecto, la luna está oculta
+    .fa-moon { 
+        display: none; 
+    }
+}
+
+// Cuando el tema sea 'light', ocultamos el sol y mostramos la luna
+html[data-theme='light'] .theme-toggle {
+    .fa-sun { 
+        display: none; 
+    }
+    .fa-moon { 
+        display: block; 
+    }
+}
+
+// En móvil, ajustamos el margen
+@media (max-width: 768px) {
+  .theme-toggle {
+    margin-right: $spacing-unit * 1.5;
   }
 }

@@ -1,19 +1,6 @@
 //================================================
-// 1. FUENTES
+// 1. VARIABLES FIJAS (SASS)
 //================================================
 $font-primary: 'Poppins', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
-
-//================================================
-// 2. COLORES
-//================================================
-$color-background: #121212; // Un negro suave y moderno
-$color-surface: #1E1E1E;    // Para elementos "sobre" el fondo, como tarjetas
-$color-primary: #00A8E8;    // Un azul cian vibrante para llamados a la acción
-$color-text-primary: #EAEAEA; // Texto principal, casi blanco
-$color-text-secondary: #A8A8A8; // Texto secundario, un poco más apagado
-
-//================================================
-// 3. ESPACIADO Y OTROS
-//================================================
-$spacing-unit: 1rem; // 16px por defecto
+$spacing-unit: 1rem;

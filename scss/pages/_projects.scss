@@ -1,5 +1,5 @@
 .projects {
-    background-color: $color-background;
+    background-color: var(--color-background);
 
     &__container {
         max-width: 1100px;
@@ -10,7 +10,7 @@
 .project-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background-color: $color-surface;
+    background-color: 	var(--color-surface);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -26,7 +26,7 @@
             height: 100%; 
             // La imagen se ajusta para cubrir el espacio, recortando el exceso.
             object-fit: cover; 
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
     }
 
@@ -44,13 +44,13 @@
         font-family: $font-primary;
         font-size: 1.75rem;
         margin: 0 0 $spacing-unit;
-        color: $color-text-primary;
+        color: var(--color-text-primary);
     }
 
     &__description {
         font-family: $font-secondary;
         line-height: 1.6;
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
         flex-grow: 1; 
     }
 
@@ -64,8 +64,8 @@
     }
 
     &__tech-item {
-        background-color: rgba($color-primary, 0.1);
-        color: $color-primary;
+        background-color: rgba(var(--color-primary), 0.1);
+        color: var(--color-primary);
         padding: ($spacing-unit * 0.4) ($spacing-unit * 1.2);
         border-radius: 50px;
         font-size: 0.85rem;

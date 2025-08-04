@@ -11,23 +11,23 @@
     transition: all 0.3s ease;
 
     &--primary {
-        background-color: $color-primary;
-        color: $color-background;
-        border-color: $color-primary;
+        background-color: var(--color-primary);
+        color: var(--color-background);
+        border-color: var(--color-primary);
 
         &:hover {
             background-color: transparent;
-            color: $color-primary;
+            color: var(--color-primary);
         }
     }
     &--secondary {
         background-color: transparent;
-        color: $color-text-secondary;
-        border-color: $color-surface;
+        color: var(--color-text-secondary);
+        border-color: 	var(--color-surface);
 
         &:hover {
-            color: $color-primary;
-            border-color: $color-primary;
+            color: var(--color-primary);
+            border-color: var(--color-primary);
         }
     }
 }

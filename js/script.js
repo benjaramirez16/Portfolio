@@ -1,6 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===================================================================
+  // LÓGICA DEL CAMBIADOR DE TEMA (MODO CLARO/OSCURO)
+  // ===================================================================
+  function initThemeSwitcher() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement; // Seleccionamos el elemento <html>
+
+    if (!themeToggle || !htmlEl) return;
+
+    // Función para aplicar el tema
+    const applyTheme = (theme) => {
+        htmlEl.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    };
+
+    // Revisa el tema guardado en localStorage al cargar la página
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else {
+        // Si no hay nada, revisa la preferencia del sistema operativo
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    // Listener para el clic en el botón
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+  }
+  initThemeSwitcher();
+
+  // ===================================================================
   // FUNCIÓN PARA DETECTAR DISPOSITIVOS TÁCTILES
   // ===================================================================
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -30,7 +63,38 @@ document.addEventListener('DOMContentLoaded', () => {
   // INICIALIZACIÓN DE EFECTOS SOLO PARA DISPOSITIVOS NO TÁCTILES
   // ===================================================================
   if (!isTouchDevice) {
-    
+      
+    // Pega la función aquí, dentro del if (!isTouchDevice)
+    function initCursorEffects() {
+      const cursor = document.querySelector('.cursor');
+      const spotlight = document.querySelector('.spotlight');
+      if (!cursor || !spotlight) return;
+
+      let cursorsInitialized = false;
+      window.addEventListener('mousemove', (e) => {
+        if (!cursorsInitialized) {
+          cursor.style.opacity = '1';
+          spotlight.style.opacity = '1';
+          cursorsInitialized = true;
+        }
+        const cursorX = e.clientX - cursor.offsetWidth / 2;
+        const cursorY = e.clientY - cursor.offsetHeight / 2;
+        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+        
+        const spotlightX = e.clientX - spotlight.offsetWidth / 2;
+        const spotlightY = e.clientY - spotlight.offsetHeight / 2;
+        spotlight.style.transform = `translate(${spotlightX}px, ${spotlightY}px)`;
+      });
+
+      const interactiveElements = document.querySelectorAll('a, button, .magnetic');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+      });
+    }
+    initCursorEffects();
+
+
     // --- EFECTO "SCRAMBLE" EN EL LOGO ---
     function initLogoScramble() {
       const logo = document.querySelector('.header__logo');
@@ -53,32 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initLogoScramble();
 
-    // --- EFECTOS DE CURSOR (SPOTLIGHT Y CURSOR PERSONALIZADO) ---
-    function initCursorEffects() {
-      const cursor = document.querySelector('.cursor');
-      const spotlight = document.querySelector('.spotlight');
-      if (!cursor || !spotlight) return;
-      let cursorsInitialized = false;
-      window.addEventListener('mousemove', (e) => {
-        if (!cursorsInitialized) {
-          cursor.style.opacity = '1';
-          spotlight.style.opacity = '1';
-          cursorsInitialized = true;
-        }
-        const cursorX = e.clientX - cursor.offsetWidth / 2;
-        const cursorY = e.clientY - cursor.offsetHeight / 2;
-        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-        const spotlightX = e.clientX - spotlight.offsetWidth / 2;
-        const spotlightY = e.clientY - spotlight.offsetHeight / 2;
-        spotlight.style.transform = `translate(${spotlightX}px, ${spotlightY}px)`;
-      });
-      const interactiveElements = document.querySelectorAll('a, button, .magnetic');
-      interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-      });
-    }
-    initCursorEffects();
+    
 
     // --- LÓGICA DE BOTONES MAGNÉTICOS ---
     function initMagneticEffect() {

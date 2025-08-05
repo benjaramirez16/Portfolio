@@ -1,6 +1,7 @@
 .skills {
     background-color: var(--color-background);
     text-align: center;
+    transition: background-color 0.3s ease;
 
     &__container {
         max-width: 900px;
@@ -15,16 +16,48 @@
     }
 }
 
+// Estilos para el efecto FLIP
 .skill-card {
-    background-color: 	var(--color-surface);
-    border: 1px solid transparent;
-    border-radius: 8px;
-    padding: $spacing-unit * 2.5 $spacing-unit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-unit * 1.5;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: transparent; // El contenedor principal es transparente
+    height: 160px; // Damos una altura fija para el efecto 3D
+    perspective: 1000px; // Activa la perspectiva 3D
+
+    &__inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+
+    &:hover &__inner {
+        transform: rotateY(180deg); // Gira el contenedor al hacer hover
+    }
+
+    &__front, &__back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden; // Oculta la cara trasera de un elemento
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: $spacing-unit * 1.5;
+    }
+
+    &__front {
+        background-color: var(--color-surface);
+        border: 1px solid rgba(var(--color-text-primary-rgb), 0.1);
+    }
+
+    &__back {
+        background-color: var(--color-primary);
+        color: var(--color-background);
+        transform: rotateY(180deg); // La cara trasera empieza girada
+        padding: $spacing-unit;
+    }
 
     &__icon {
         font-size: 3.5rem;
@@ -38,16 +71,17 @@
         margin: 0;
     }
 
-    &:hover {
-        transform: translateY(-5px);
-        border-color: var(--color-primary);
+    &__description {
+        font-family: $font-secondary;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin: 0;
     }
 }
 
-// 2. MEDIA QUERY PARA RESPONSIVIDAD
+
 @media (max-width: 992px) {
     .skills__grid {
-        // En pantallas más pequeñas, cambiamos a 2 columnas.
         grid-template-columns: repeat(2, 1fr);
     }
 }

@@ -180,6 +180,35 @@ body.mobile-nav-open .cursor, body.mobile-nav-open .spotlight {
   border-color: var(--color-primary);
 }
 
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  transform: scale(1.1);
+}
+
 .header {
   background-color: rgba(var(--color-header-bg-rgb), 0.8);
   -webkit-backdrop-filter: blur(10px);
@@ -321,6 +350,9 @@ html[data-theme=light] .theme-toggle .fa-moon {
   .nav-toggle {
     display: block;
   }
+  .sound-toggle {
+    display: none !important;
+  }
   .nav {
     display: flex;
     position: fixed;
@@ -359,6 +391,48 @@ html[data-theme=light] .theme-toggle .fa-moon {
     font-size: 1.5rem;
   }
 }
+.sound-toggle {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.sound-toggle:hover {
+  color: var(--color-primary);
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+.sound-toggle .fa-volume-high {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.sound-toggle::before {
+  content: "\f6a9";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+body.sound-muted .sound-toggle .fa-volume-high {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+body.sound-muted .sound-toggle::before {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 .footer {
   background-color: var(--color-surface);
   padding: 3rem 2rem;

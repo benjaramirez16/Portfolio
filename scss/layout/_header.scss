@@ -134,6 +134,10 @@ html[data-theme='light'] .theme-toggle {
     display: block; 
   }
 
+  .sound-toggle {
+    display: none !important;
+  }
+
   // El panel de navegación
   .nav {
     display: flex; // Lo mantenemos como flex para alinear los enlaces
@@ -185,4 +189,61 @@ html[data-theme='light'] .theme-toggle {
   .nav__link {
     font-size: 1.5rem;
   }
+}
+
+// Estilos para el botón de sonido con animación de transformación (corregida)
+.sound-toggle {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden; // Crucial para ocultar el ícono que se desliza
+
+    &:hover {
+        color: var(--color-primary);
+        background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+
+    // El ícono original (volumen alto)
+    .fa-volume-high {
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    // Creamos el segundo ícono (volumen muteado) con CSS
+    &::before {
+        content: '\f6a9'; // Código Unicode para fa-volume-xmark
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        
+        // Estado inicial: abajo y completamente invisible
+        transform: translateY(100%);
+        opacity: 0;
+        
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+}
+
+// Cuando el sonido está muteado...
+body.sound-muted .sound-toggle {
+    // 1. El ícono original se desliza hacia arriba y se desvanece
+    .fa-volume-high {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    // 2. El ícono de "mute" se desliza al centro y se hace visible
+    &::before {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

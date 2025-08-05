@@ -146,6 +146,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
+  // BOTÓN VOLVER ARRIBA
+  // ===================================================================
+  function initBackToTopButton() {
+    const backToTopButton = document.querySelector('.back-to-top');
+    if (!backToTopButton) return;
+
+    window.addEventListener('scroll', () => {
+      // Si el usuario ha bajado más de 500px...
+      if (window.scrollY > 500) {
+        backToTopButton.classList.add('is-visible');
+      } else {
+        backToTopButton.classList.remove('is-visible');
+      }
+    });
+  }
+
+
+  // ===================================================================
   // NAVEGACIÓN ACTIVA AL SCROLL
   // ===================================================================
   function initNavObserver() {
@@ -222,6 +240,63 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
+  // LÓGICA DE SONIDOS DE INTERFAZ
+  // ===================================================================
+  function initSoundEffects() {
+    const soundToggle = document.getElementById('sound-toggle');
+    const body = document.body;
+
+    // Cargamos los sonidos
+    const hoverSound = new Audio('audio/hover.mp3');
+    const clickSound = new Audio('audio/click.mp3');
+    const toggleSound = new Audio('audio/toggle.mp3');
+
+    // Ajustamos el volumen para que sean sutiles
+    hoverSound.volume = 0.3;
+    clickSound.volume = 0.5;
+    toggleSound.volume = 0.4;
+    
+    let isMuted = localStorage.getItem('soundMuted') !== 'false';
+
+    const updateMuteStatus = () => {
+      isMuted = !isMuted;
+      localStorage.setItem('soundMuted', isMuted);
+      body.classList.toggle('sound-muted', isMuted);
+    };
+
+    const playSound = (sound) => {
+      if (!isMuted) {
+        sound.currentTime = 0; // Permite que el sonido se repita rápidamente
+        sound.play();
+      }
+    };
+    
+    // Aplicar estado inicial
+    body.classList.toggle('sound-muted', isMuted);
+
+    // Evento para el botón de silencio
+    soundToggle.addEventListener('click', () => {
+      updateMuteStatus();
+    });
+
+    // Asignar sonidos a los elementos
+    const hoverElements = document.querySelectorAll('a, button');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => playSound(hoverSound));
+    });
+
+    const clickElements = document.querySelectorAll('a, button');
+    clickElements.forEach(el => {
+      el.addEventListener('click', () => playSound(clickSound));
+    });
+
+    const navToggle = document.querySelector('.nav-toggle');
+    if (navToggle) {
+        navToggle.addEventListener('click', () => playSound(toggleSound));
+    }
+  }
+
+  // ===================================================================
   // LLAMADAS A TODAS LAS FUNCIONES DE INICIALIZACIÓN
   // ===================================================================
   initMobileNav();
@@ -230,5 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavObserver();
   initTypingEffect();
   initFadeInObserver();
-  initProjectModal(); // <-- La función reconstruida está aquí
+  initBackToTopButton();
+  initSoundEffects();
 });

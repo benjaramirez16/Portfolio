@@ -5,6 +5,7 @@
   // TEMA OSCURO (Por defecto)
   --color-background: #121212;
   --color-surface: #1E1E1E;
+  --color-surface-rgb: 30, 30, 30;
   --color-primary: #00A8E8;
   --color-primary-rgb: 0, 168, 232;
   --color-text-primary: #EAEAEA;
@@ -17,6 +18,7 @@ html[data-theme='light'] {
   // TEMA CLARO (MEJORADO)
   --color-background: #F8F9FA;
   --color-surface: #FFFFFF;
+  --color-surface-rgb: 255, 255, 255;
   --color-primary: #007BFF;
   --color-primary-rgb: 0, 123, 255;
   --color-text-primary: #212529;
@@ -100,4 +102,14 @@ body {
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-background);
+}
+
+// Oculta el cursor personalizado y restaura el del sistema
+// cuando el menú móvil está abierto.
+body.mobile-nav-open {
+  cursor: auto;
+
+  .cursor, .spotlight {
+    display: none;
+  }
 }

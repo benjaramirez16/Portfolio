@@ -19,7 +19,6 @@
         padding: 0 ($spacing-unit * 2);
         position: relative;
     }
-
     &__logo {
         font-family: $font-primary;
         font-weight: 700;
@@ -27,7 +26,6 @@
         text-decoration: none;
         color: var(--color-text-primary);
     }
-
     &__actions {
         display: flex;
         align-items: center;
@@ -43,18 +41,15 @@
         padding: 0;
         gap: $spacing-unit * 2;
     }
-
     &__link {
         font-family: $font-secondary;
         color: var(--color-text-secondary);
         text-decoration: none;
         font-weight: 500;
         transition: color 0.3s ease;
-
         &:hover {
             color: var(--color-primary);
         }
-
         &.active {
             color: var(--color-primary);
             font-weight: 700;
@@ -76,24 +71,16 @@
     font-size: 1.2rem;
     transition: all 0.3s ease;
     margin-right: $spacing-unit;
-
     &:hover {
         color: var(--color-primary);
         background-color: rgba(var(--color-primary-rgb), 0.1);
     }
-
-    .fa-moon { 
-        display: none; 
-    }
+    .fa-moon { display: none; }
 }
 
 html[data-theme='light'] .theme-toggle {
-    .fa-sun { 
-        display: none; 
-    }
-    .fa-moon { 
-        display: block; 
-    }
+    .fa-sun { display: none; }
+    .fa-moon { display: block; }
 }
 
 .nav-toggle {
@@ -103,10 +90,7 @@ html[data-theme='light'] .theme-toggle {
   cursor: pointer;
   padding: 0;
   z-index: 10000;
-  
-  .hamburger,
-  .hamburger::before,
-  .hamburger::after {
+  .hamburger, .hamburger::before, .hamburger::after {
     content: '';
     display: block;
     background-color: var(--color-text-primary);
@@ -115,14 +99,8 @@ html[data-theme='light'] .theme-toggle {
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
   }
-  
-  .hamburger::before {
-    transform: translateY(-8px);
-  }
-
-  .hamburger::after {
-    transform: translateY(8px);
-  }
+  .hamburger::before { transform: translateY(-8px); }
+  .hamburger::after { transform: translateY(8px); }
 }
 
 .progress-container {
@@ -143,30 +121,22 @@ html[data-theme='light'] .theme-toggle {
 }
 
 @keyframes pulse-effect {
-  50% {
-    box-shadow: 0 0 20px var(--color-primary);
-  }
+  50% { box-shadow: 0 0 20px var(--color-primary); }
 }
 
 .progress-bar--completed {
   animation: pulse-effect 0.8s ease-out 1;
 }
 
-// Media Query para la vista móvil (unificada y corregida)
+// Media Query para la vista móvil (VERSIÓN FINAL CON ANIMACIÓN)
 @media (max-width: 768px) {
   .nav-toggle {
     display: block; 
   }
 
-  .theme-toggle {
-    margin-right: $spacing-unit * 1.5;
-  }
-  
-  .header.mobile-nav-open .nav {
-    transform: translateX(0);
-  }
-
+  // El panel de navegación
   .nav {
+    display: flex; // Lo mantenemos como flex para alinear los enlaces
     position: fixed;
     top: 0;
     right: 0;
@@ -174,31 +144,45 @@ html[data-theme='light'] .theme-toggle {
     height: 100vh;
     background-color: rgba(var(--color-header-bg-rgb), 0.95);
     backdrop-filter: blur(10px);
+    z-index: 999;
+
+    // 1. Oculto fuera de la pantalla por defecto
     transform: translateX(100%);
     transition: transform 0.4s ease-in-out;
   }
 
+  // Cuando el BODY tiene la clase...
+  body.mobile-nav-open {
+    // 2. El panel se desliza a la vista
+    .nav {
+      transform: translateX(0);
+    }
+
+    // 3. La animación de la 'X' (sin cambios)
+    .nav-toggle {
+      .hamburger {
+        background-color: transparent;
+      }
+      .hamburger::before {
+        transform: translateY(0) rotate(45deg);
+      }
+      .hamburger::after {
+        transform: translateY(0) rotate(-45deg);
+      }
+    }
+  }
+
+  // Estilos para la lista y los enlaces (sin cambios)
   .nav__list {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     height: 100%;
-    gap: $spacing-unit * 3;
+    gap: 3rem;
   }
 
   .nav__link {
     font-size: 1.5rem;
-  }
-
-  .header.mobile-nav-open .nav-toggle {
-    .hamburger {
-      background-color: transparent;
-    }
-    .hamburger::before {
-      transform: translateY(0) rotate(45deg);
-    }
-    .hamburger::after {
-      transform: translateY(0) rotate(-45deg);
-    }
   }
 }

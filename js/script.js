@@ -1,63 +1,77 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===================================================================
-  // LÓGICA DEL MENÚ MÓVIL (HAMBURGUESA)
+  // LÓGICA DEL MODAL DE PROYECTOS
   // ===================================================================
+  function initProjectModal() {
+    const openModalBtn = document.querySelector('.js-open-modal');
+    const modal = document.getElementById('project-modal');
+    if (!openModalBtn || !modal) return;
+    
+    const closeModalBtn = modal.querySelector('.modal__close');
+    const body = document.body;
+    let projectSwiper = null;
+
+    const openModal = () => {
+      modal.classList.add('is-open');
+      body.classList.add('no-scroll');
+      setTimeout(() => {
+        if (!projectSwiper) {
+          try {
+            projectSwiper = new Swiper('.swiper', {
+              loop: true,
+              navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+              pagination: { el: '.swiper-pagination', clickable: true },
+            });
+          } catch (error) { console.error("ERROR al inicializar Swiper:", error); }
+        } else {
+          projectSwiper.update();
+        }
+      }, 50); // Reducimos un poco el tiempo
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      body.classList.remove('no-scroll');
+    };
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+  }
+
+  // ===================================================================
+  // TODAS LAS DEMÁS FUNCIONES
+  // ===================================================================
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   function initMobileNav() {
     const navToggle = document.querySelector('.nav-toggle');
-    const header = document.querySelector('.header');
+    const body = document.body;
     const navLinks = document.querySelectorAll('.nav__link');
-    if (!navToggle || !header) return;
-
-    navToggle.addEventListener('click', () => {
-      header.classList.toggle('mobile-nav-open');
-    });
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        header.classList.remove('mobile-nav-open');
-      });
-    });
+    if (!navToggle || !body) return;
+    navToggle.addEventListener('click', () => { body.classList.toggle('mobile-nav-open'); });
+    navLinks.forEach(link => { link.addEventListener('click', () => { body.classList.remove('mobile-nav-open'); }); });
   }
-  initMobileNav();
-
-  
-  // ===================================================================
-  // LÓGICA DEL CAMBIADOR DE TEMA (MODO CLARO/OSCURO)
-  // ===================================================================
   function initThemeSwitcher() {
     const themeToggle = document.getElementById('theme-toggle');
     const htmlEl = document.documentElement;
     if (!themeToggle || !htmlEl) return;
-
     const applyTheme = (theme) => {
       htmlEl.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
     };
-
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      applyTheme(savedTheme);
-    } else {
+    if (savedTheme) { applyTheme(savedTheme); }
+    else {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(prefersDark ? 'dark' : 'light');
     }
-
     themeToggle.addEventListener('click', () => {
       const currentTheme = htmlEl.getAttribute('data-theme');
       applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
   }
-  initThemeSwitcher();
-
-  // ===================================================================
-  // FUNCIÓN PARA DETECTAR DISPOSITIVOS TÁCTILES
-  // ===================================================================
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  // ===================================================================
-  // INICIALIZACIÓN DE EFECTOS SOLO PARA DISPOSITIVOS NO TÁCTILES
-  // ===================================================================
   if (!isTouchDevice) {
     function initLogoScramble() {
       const logo = document.querySelector('.header__logo');
@@ -79,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     initLogoScramble();
-
     function initCursorEffects() {
       const cursor = document.querySelector('.cursor');
       const spotlight = document.querySelector('.spotlight');
@@ -105,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     initCursorEffects();
-
     function initMagneticEffect() {
       const magneticElements = document.querySelectorAll('.magnetic');
       const strength = 0.2;
@@ -125,10 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initMagneticEffect();
   }
-
-  // ===================================================================
-  // BARRA DE PROGRESO DE SCROLL
-  // ===================================================================
   function initProgressBar() {
     const progressBar = document.querySelector('.progress-bar');
     if (!progressBar) return;
@@ -147,11 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  initProgressBar();
-
-  // ===================================================================
-  // NAVEGACIÓN ACTIVA AL SCROLL
-  // ===================================================================
   function initNavObserver() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav__link');
@@ -167,11 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { rootMargin: '-50% 0px -50% 0px' });
     sections.forEach(section => navObserver.observe(section));
   }
-  initNavObserver();
-
-  // ===================================================================
-  // EFECTO MÁQUINA DE ESCRIBIR
-  // ===================================================================
   function initTypingEffect() {
     const typingText = document.querySelector('.typing-text');
     const heroElements = document.querySelectorAll('.hero-element-hidden');
@@ -192,11 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setTimeout(type, 500);
   }
-  initTypingEffect();
-
-  // ===================================================================
-  // ANIMACIONES DE SCROLL (FADE-IN Y CASCADA DE LETRAS)
-  // ===================================================================
   function initFadeInObserver() {
     const hiddenElements = document.querySelectorAll('.hidden');
     const fadeInObserver = new IntersectionObserver((entries) => {
@@ -226,6 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
     hiddenElements.forEach(element => fadeInObserver.observe(element));
   }
-  initFadeInObserver();
 
+  // LLAMADAS A TODAS LAS FUNCIONES
+  initMobileNav();
+  initThemeSwitcher();
+  initProgressBar();
+  initNavObserver();
+  initTypingEffect();
+  initFadeInObserver();
+  initProjectModal();
 });

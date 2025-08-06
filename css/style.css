@@ -89,10 +89,13 @@ body {
   color: var(--color-background);
 }
 
+body.no-scroll,
 body.mobile-nav-open {
   cursor: auto;
 }
-body.mobile-nav-open .cursor, body.mobile-nav-open .spotlight {
+body.no-scroll .cursor, body.no-scroll .spotlight,
+body.mobile-nav-open .cursor,
+body.mobile-nav-open .spotlight {
   display: none;
 }
 

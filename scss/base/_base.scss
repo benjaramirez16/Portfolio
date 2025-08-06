@@ -105,7 +105,8 @@ body {
 }
 
 // Oculta el cursor personalizado y restaura el del sistema
-// cuando el menú móvil está abierto.
+// cuando un modal o menú está abierto.
+body.no-scroll,
 body.mobile-nav-open {
   cursor: auto;
 

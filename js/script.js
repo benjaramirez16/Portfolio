@@ -296,6 +296,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+ // ===================================================================
+  // LÓGICA DEL MODAL DE PROYECTOS (VERSIÓN FINAL A PRUEBA DE ERRORES)
+  // ===================================================================
+  function initProjectModal() {
+      const openModalBtn = document.querySelector('.js-open-modal');
+      const modal = document.getElementById('project-modal');
+      if (!openModalBtn || !modal) return;
+      
+      const body = document.body;
+      let projectSwiper = null;
+
+      const openModal = () => {
+          modal.showModal();
+          body.classList.add('no-scroll');
+
+          // Función que inicializa o actualiza Swiper
+          const initializeSwiper = () => {
+              if (!projectSwiper) {
+                  try {
+                      projectSwiper = new Swiper('.swiper', {
+                          loop: true,
+                          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                          pagination: { el: '.swiper-pagination', clickable: true },
+                      });
+                  } catch (error) { console.error("ERROR al inicializar Swiper:", error); }
+              } else {
+                  projectSwiper.update();
+              }
+          };
+
+          // Escuchamos a que la animación de entrada del modal termine
+          // y SÓLO ENTONCES inicializamos Swiper.
+          modal.addEventListener('animationend', initializeSwiper, { once: true });
+      };
+
+      // La función para cerrar no cambia
+      const closeModal = () => {
+          modal.close();
+      };
+      
+      // Añadimos el listener para el evento 'close' del dialog
+      modal.addEventListener('close', () => {
+          body.classList.remove('no-scroll');
+      });
+
+      openModalBtn.addEventListener('click', openModal);
+      // El botón de cerrar <form method="dialog"> ya funciona nativamente
+      // pero añadimos este por si lo necesitamos en el futuro.
+      const closeModalBtn = modal.querySelector('.modal__close');
+      if (closeModalBtn) {
+          closeModalBtn.addEventListener('click', closeModal);
+      }
+  }
+
   // ===================================================================
   // LLAMADAS A TODAS LAS FUNCIONES DE INICIALIZACIÓN
   // ===================================================================
@@ -307,4 +361,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFadeInObserver();
   initBackToTopButton();
   initSoundEffects();
+  initProjectModal();
 });

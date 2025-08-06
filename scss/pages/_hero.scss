@@ -29,10 +29,15 @@
     }
 }
 
-// Estilos para el efecto de máquina de escribir
-.hero__title {
-    // Aseguramos que el h1 mantenga el espacio vertical mientras se escribe
-    min-height: 4.2rem; 
+// Regla corregida y más específica para el título
+h1.hero__title {
+    font-family: $font-primary;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-top: 0;
+    margin-bottom: $spacing-unit;
+    min-height: 4.2rem;
 }
 
 .cursor {

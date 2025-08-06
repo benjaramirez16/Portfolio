@@ -682,7 +682,13 @@ body.sound-muted .sound-toggle::before {
   margin-bottom: 2.5rem;
 }
 
-.hero__title {
+h1.hero__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
   min-height: 4.2rem;
 }
 

@@ -23,7 +23,7 @@ html[data-theme='light'] {
   --color-primary-rgb: 0, 123, 255;
   --color-text-primary: #212529;
   --color-text-primary-rgb: 33, 37, 41;
-  --color-text-secondary: #6C757D;
+  --color-text-secondary: #495057;
   --color-header-bg-rgb: 248, 249, 250;
 }
 
@@ -113,4 +113,24 @@ body.mobile-nav-open {
   .cursor, .spotlight {
     display: none;
   }
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--color-surface);
+}
+
+// Para Chrome, Safari, Edge y otros navegadores Webkit
+body::-webkit-scrollbar {
+  width: 10px; // Ancho de la barra
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--color-surface); // Color del "riel"
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary); // Color de la barra
+  border-radius: 10px;
+  border: 2px solid var(--color-surface); // Un pequeño borde del color del riel
 }

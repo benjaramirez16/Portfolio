@@ -51,23 +51,24 @@
 }
 
 .modal__close {
-    background: rgba(var(--color-background-rgb, 18, 18, 18), 0.5);
-    border: none;
-    color: white;
-    width: 32px;
-    height: 32px;
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1;
     transition: all 0.3s ease;
+    padding: 0; 
     &:hover {
-        background-color: rgba(var(--color-background-rgb, 18, 18, 18), 0.7);
+        background-color: var(--color-primary);
+        color: var(--color-background);
         transform: scale(1.1);
-        color: white;
     }
 }
 

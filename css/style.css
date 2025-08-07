@@ -660,46 +660,32 @@ html[data-theme=light] .theme-toggle .fa-moon {
     font-size: 1.5rem;
   }
 }
-.sound-toggle {
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: var(--color-surface);
+  padding: 0.3rem 0.6rem;
+  border-radius: 50px;
+  border: 1px solid rgba(var(--color-text-primary-rgb), 0.1);
+}
+
+.lang-switcher__button {
   background: transparent;
   border: none;
   color: var(--color-text-secondary);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  padding: 0.2rem;
+  transition: color 0.3s ease;
 }
-.sound-toggle:hover {
+.lang-switcher__button.is-active {
   color: var(--color-primary);
-  background-color: rgba(var(--color-primary-rgb), 0.1);
-}
-.sound-toggle .fa-volume-high {
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-.sound-toggle::before {
-  content: "\f6a9";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  position: absolute;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-body.sound-muted .sound-toggle .fa-volume-high {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-body.sound-muted .sound-toggle::before {
-  transform: translateY(0);
-  opacity: 1;
+.lang-switcher__separator {
+  color: var(--color-text-secondary);
 }
 
 .footer {

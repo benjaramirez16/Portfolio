@@ -1,0 +1,23 @@
+{
+  "nav_about": "About Me",
+  "nav_skills": "Skills",
+  "nav_projects": "Projects",
+  "nav_blog": "Blog",
+  "nav_contact": "Contact",
+  "hero_title": "Frontend Web Developer",
+  "hero_subtitle": "Creating functional and attractive digital solutions with a focus on quality and performance.",
+  "hero_button": "View my Projects",
+  "about_title": "About Me",
+  "about_p1": "Hi! I'm Benjamín Ramírez, a passionate Frontend-focused web developer. My journey into programming began with the desire to transform creative ideas into interactive and functional digital experiences.",
+  "about_p2": "With a solid foundation in technologies like HTML, CSS, SASS, and JavaScript, I enjoy building clean, accessible, and high-performance interfaces. My goal is to add value through quality code and a continuous learning mindset, always seeking the next challenge to grow as a professional.",
+  "skills_title": "My Skills",
+  "projects_title": "My Projects",
+  "blog_title": "My Articles",
+  "contact_title": "Let's Talk",
+  "contact_description": "Have a question, a proposal, or just want to say hello? Go ahead.",
+  "contact_form_name": "Name",
+  "contact_form_email": "Email",
+  "contact_form_message": "Message",
+  "contact_form_button": "Send Message",
+  "footer_copyright": "&copy; 2025 Benjamín Ramírez. All rights reserved."
+}

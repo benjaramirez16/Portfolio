@@ -33,17 +33,19 @@
             <div class="header__actions">
                 <nav class="nav">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="#sobre-mi" class="nav__link">Sobre Mí</a></li>
-                        <li class="nav__item"><a href="#habilidades" class="nav__link">Habilidades</a></li>
-                        <li class="nav__item"><a href="#proyectos" class="nav__link">Proyectos</a></li>
-                        <li class="nav__item"><a href="#blog" class="nav__link">Blog</a></li>
-                        <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
+                        <li class="nav__item"><a href="#sobre-mi" class="nav__link" data-key="nav_about">Sobre Mí</a></li>
+                        <li class="nav__item"><a href="#habilidades" class="nav__link" data-key="nav_skills">Habilidades</a></li>
+                        <li class="nav__item"><a href="#proyectos" class="nav__link" data-key="nav_projects">Proyectos</a></li>
+                        <li class="nav__item"><a href="#blog" class="nav__link" data-key="nav_blog">Blog</a></li>
+                        <li class="nav__item"><a href="#contacto" class="nav__link" data-key="nav_contact">Contacto</a></li>
                     </ul>
                 </nav>
 
-                <button class="sound-toggle" id="sound-toggle" aria-label="Activar o desactivar sonido">
-                    <i class="fa-solid fa-volume-high"></i>
-                </button>
+                <div class="lang-switcher">
+                    <button class="lang-switcher__button" data-lang="es">ES</button>
+                    <span class="lang-switcher__separator">/</span>
+                    <button class="lang-switcher__button" data-lang="en">EN</button>
+                </div>
 
                 <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
                     <i class="fa-solid fa-sun"></i>
@@ -65,21 +67,21 @@
         <section id="hero" class="hero">
             <div class="hero__container">
                 <h1 class="hero__title" aria-label="Desarrollador Web Frontend">
-                    <span class="typing-text"></span><span class="cursor">&nbsp;</span>
+                    <span class="typing-text" data-key="hero_title"></span><span class="cursor">&nbsp;</span>
                 </h1>
-                <p class="hero__subtitle hero-element-hidden">Creando soluciones digitales, funcionales y atractivas con un enfoque en la calidad y el rendimiento.</p>
-                <a href="#proyectos" class="button button--primary hero-element-hidden magnetic">Ver mis Proyectos</a>
+                <p class="hero__subtitle hero-element-hidden" data-key="hero_subtitle">Creando soluciones digitales, funcionales y atractivas con un enfoque en la calidad y el rendimiento.</p>
+                <a href="#proyectos" class="button button--primary hero-element-hidden magnetic" data-key="hero_button">Ver mis Proyectos</a>
             </div>
         </section>
 
         <section id="sobre-mi" class="about-me section-padding hidden">
             <div class="about-me__container">
                 <div class="about-me__content">
-                    <h2 class="section-title"><span>Sobre Mí</span></h2>
-                    <p>
+                    <h2 class="section-title"><span data-key="about_title">Sobre Mí</span></h2>
+                    <p data-key="about_p1">
                         ¡Hola! Soy Benjamín Ramírez, un apasionado desarrollador web enfocado en el Frontend. Mi viaje en el mundo de la programación comenzó con el deseo de transformar ideas creativas en experiencias digitales interactivas y funcionales.
                     </p>
-                    <p>
+                    <p data-key="about_p2">
                         Con una base sólida en tecnologías como HTML, CSS, SASS y JavaScript, disfruto construyendo interfaces limpias, accesibles y de alto rendimiento. Mi objetivo es aportar valor a través de un código de calidad y una mentalidad de aprendizaje continuo, buscando siempre el siguiente desafío para crecer como profesional.
                     </p>
                 </div>
@@ -92,6 +94,7 @@
         </section>
 
         <section id="habilidades" class="skills section-padding hidden">
+            <h2 class="section-title"><span data-key="skills_title">Mis Habilidades</span></h2>
             <div class="skills__grid">
                 <div class="skill-card">
                     <div class="skill-card__inner">
@@ -196,7 +199,7 @@
 
         <section id="proyectos" class="projects section-padding hidden">
             <div class="projects__container">
-                <h2 class="section-title"><span>Mis Proyectos</span></h2>
+                <h2 class="section-title"><span data-key="projects_title">Mis Proyectos</span></h2>
                 <article class="project-card">
                     <div class="project-card__image">
                         <a href="https://nudosdelalma.rf.gd/" target="_blank" rel="noopener noreferrer">
@@ -228,32 +231,32 @@
         </section>
         <section id="blog" class="blog section-padding hidden">
             <div class="blog__container">
-                <h2 class="section-title"><span>Mis Artículos</span></h2>
+                <h2 class="section-title"><span data-key="blog_title">Mis Artículos</span></h2>
                 <div class="blog__grid" id="blog-grid">
                     </div>
             </div>
         </section>
         <section id="contacto" class="contact section-padding hidden">
             <div class="contact__container">
-                <h2 class="section-title"><span>Hablemos</span></h2>
+                <h2 class="section-title"><span data-key="contact_title">Hablemos</span></h2>
                 <p class="contact__description">
                     ¿Tienes una pregunta o una propuesta o simplemente quieres saludar? Adelante.
                 </p>
                 
                 <form action="https://formspree.io/f/mrblabwp" method="POST" class="contact__form">
                     <div class="form-group">
-                        <label for="name" class="form-label">Nombre</label>
+                        <label for="name" class="form-label" data-key="contact_form_name">Nombre</label>
                         <input type="text" id="name" name="name" class="form-input" required>
                     </div>
                     <div class="form-group">
-                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <label for="email" class="form-label" data-key="contact_form_email">Correo Electrónico</label>
                         <input type="email" id="email" name="email" class="form-input" required>
                     </div>
                     <div class="form-group">
-                        <label for="message" class="form-label">Mensaje</label>
+                        <label for="message" class="form-label" data-key="contact_form_message">Mensaje</label>
                         <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="button button--primary">Enviar Mensaje</button>
+                    <button type="submit" class="button button--primary" data-key="contact_form_button">Enviar Mensaje</button>
                 </form>
             </div>
         </section>
@@ -272,7 +275,7 @@
                     </a>
                 </li>
                 </ul>
-            <p class="footer__copyright">
+            <p class="footer__copyright" data-key="footer_copyright">
                 &copy; 2025 Benjamín Ramírez. Todos los derechos reservados.
             </p>
         </div>

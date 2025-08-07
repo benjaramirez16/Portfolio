@@ -187,21 +187,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===================================================================
   function initTypingEffect() {
     const typingText = document.querySelector('.typing-text');
+    if (!typingText) return;
+
+    const textToType = typingText.innerHTML || "Desarrollador Web Frontend";
+    typingText.textContent = ''; // Aseguramos que esté vacío al inicio
+
     const heroElements = document.querySelectorAll('.hero-element-hidden');
-    if (!typingText || heroElements.length === 0) return;
-    const textToType = "Desarrollador Web Frontend";
     let charIndex = 0;
+
     function type() {
       if (charIndex < textToType.length) {
         typingText.textContent += textToType.charAt(charIndex);
         charIndex++;
         setTimeout(type, 100);
       } else {
-        heroElements.forEach(el => {
-          el.classList.add('hero-element-visible');
-          el.classList.remove('hero-element-hidden');
-        });
+        if (!document.body.classList.contains('instant-load')) {
+          heroElements.forEach(el => {
+            el.classList.add('hero-element-visible');
+            el.classList.remove('hero-element-hidden');
+          });
+        }
       }
+    }
+
+    if (document.body.classList.contains('instant-load')) {
+      typingText.textContent = textToType;
+      heroElements.forEach(el => {
+        el.classList.add('hero-element-visible');
+        el.classList.remove('hero-element-hidden');
+      });
+      return;
     }
     setTimeout(type, 500);
   }
@@ -240,64 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // LÓGICA DE SONIDOS DE INTERFAZ
-  // ===================================================================
-  function initSoundEffects() {
-    const soundToggle = document.getElementById('sound-toggle');
-    const body = document.body;
-
-    // Cargamos los sonidos
-    const hoverSound = new Audio('audio/hover.mp3');
-    const clickSound = new Audio('audio/click.mp3');
-    const toggleSound = new Audio('audio/toggle.mp3');
-
-    // Ajustamos el volumen para que sean sutiles
-    hoverSound.volume = 0.3;
-    clickSound.volume = 0.5;
-    toggleSound.volume = 0.4;
-    
-    let isMuted = localStorage.getItem('soundMuted') !== 'false';
-
-    const updateMuteStatus = () => {
-      isMuted = !isMuted;
-      localStorage.setItem('soundMuted', isMuted);
-      body.classList.toggle('sound-muted', isMuted);
-    };
-
-    const playSound = (sound) => {
-      if (!isMuted) {
-        sound.currentTime = 0; // Permite que el sonido se repita rápidamente
-        sound.play();
-      }
-    };
-    
-    // Aplicar estado inicial
-    body.classList.toggle('sound-muted', isMuted);
-
-    // Evento para el botón de silencio
-    soundToggle.addEventListener('click', () => {
-      updateMuteStatus();
-    });
-
-    // Asignar sonidos a los elementos
-    const hoverElements = document.querySelectorAll('a, button');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', () => playSound(hoverSound));
-    });
-
-    const clickElements = document.querySelectorAll('a, button');
-    clickElements.forEach(el => {
-      el.addEventListener('click', () => playSound(clickSound));
-    });
-
-    const navToggle = document.querySelector('.nav-toggle');
-    if (navToggle) {
-        navToggle.addEventListener('click', () => playSound(toggleSound));
-    }
-  }
-
- // ===================================================================
-  // LÓGICA DEL MODAL DE PROYECTOS (VERSIÓN FINAL A PRUEBA DE ERRORES)
+  // LÓGICA DEL MODAL DE PROYECTOS 
   // ===================================================================
   function initProjectModal() {
       const openModalBtn = document.querySelector('.js-open-modal');
@@ -439,16 +397,73 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
+  // LÓGICA DE INTERNACIONALIZACIÓN (i18n)
+  // ===================================================================
+  async function initI18n() {
+    const langSwitcher = document.querySelector('.lang-switcher');
+    if (!langSwitcher) return;
+    
+    const langButtons = langSwitcher.querySelectorAll('.lang-switcher__button');
+    let translations = {};
+
+    async function fetchTranslations(lang) {
+        try {
+            const response = await fetch(`lang/${lang}.json`);
+            if (!response.ok) throw new Error('No se pudo cargar el archivo de idioma.');
+            return await response.json();
+        } catch (error) {
+            console.error('Error al cargar traducciones:', error);
+            return {};
+        }
+    }
+
+    function updateContent() {
+        document.querySelectorAll('[data-key]').forEach(element => {
+            const key = element.getAttribute('data-key');
+            if (translations[key]) {
+                // Usamos innerHTML para que renderice el &copy; del footer
+                element.innerHTML = translations[key];
+            }
+        });
+        // Volvemos a llamar a la función de tipeo para que use el nuevo texto
+        initTypingEffect();
+    }
+
+    async function setLanguage(lang) {
+        localStorage.setItem('language', lang);
+        translations = await fetchTranslations(lang);
+        updateContent();
+
+        // Actualiza el estado activo de los botones
+        langButtons.forEach(btn => {
+            btn.classList.toggle('is-active', btn.dataset.lang === lang);
+        });
+
+        // Actualiza el atributo lang del HTML
+        document.documentElement.setAttribute('lang', lang);
+    }
+
+    langButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            setLanguage(e.target.dataset.lang);
+        });
+    });
+
+    // Carga el idioma inicial
+    const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
+    setLanguage(initialLang);
+  }
+
+  // ===================================================================
   // LLAMADAS A TODAS LAS FUNCIONES DE INICIALIZACIÓN
   // ===================================================================
   initMobileNav();
   initThemeSwitcher();
   initProgressBar();
   initNavObserver();
-  initTypingEffect();
   initFadeInObserver();
   initBackToTopButton();
-  initSoundEffects();
   initProjectModal();
   initBlog();
+  initI18n();
 });

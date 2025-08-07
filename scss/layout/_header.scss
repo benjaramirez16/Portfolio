@@ -191,59 +191,32 @@ html[data-theme='light'] .theme-toggle {
   }
 }
 
-// Estilos para el botón de sonido con animación de transformación (corregida)
-.sound-toggle {
+// Estilos para el cambiador de idioma
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background-color: var(--color-surface);
+    padding: 0.3rem 0.6rem;
+    border-radius: 50px;
+    border: 1px solid rgba(var(--color-text-primary-rgb), 0.1);
+}
+
+.lang-switcher__button {
     background: transparent;
     border: none;
     color: var(--color-text-secondary);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    font-family: $font-primary;
+    font-weight: 500;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden; // Crucial para ocultar el ícono que se desliza
+    padding: 0.2rem;
+    transition: color 0.3s ease;
 
-    &:hover {
+    &.is-active {
         color: var(--color-primary);
-        background-color: rgba(var(--color-primary-rgb), 0.1);
-    }
-
-    // El ícono original (volumen alto)
-    .fa-volume-high {
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    }
-
-    // Creamos el segundo ícono (volumen muteado) con CSS
-    &::before {
-        content: '\f6a9'; // Código Unicode para fa-volume-xmark
-        font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        position: absolute;
-        
-        // Estado inicial: abajo y completamente invisible
-        transform: translateY(100%);
-        opacity: 0;
-        
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 }
 
-// Cuando el sonido está muteado...
-body.sound-muted .sound-toggle {
-    // 1. El ícono original se desliza hacia arriba y se desvanece
-    .fa-volume-high {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    // 2. El ícono de "mute" se desliza al centro y se hace visible
-    &::before {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.lang-switcher__separator {
+    color: var(--color-text-secondary);
 }

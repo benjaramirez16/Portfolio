@@ -128,19 +128,23 @@ html[data-theme='light'] .theme-toggle {
   animation: pulse-effect 0.8s ease-out 1;
 }
 
-// Media Query para la vista móvil (VERSIÓN FINAL CON ANIMACIÓN)
+// Media Query para la vista móvil (CON ANIMACIÓN DE ENLACES)
 @media (max-width: 768px) {
-  .nav-toggle {
+  .nav-toggle { 
     display: block; 
+  }
+
+  .theme-toggle {
+    margin-right: $spacing-unit * 1.5;
   }
 
   .sound-toggle {
     display: none !important;
   }
-
+  
   // El panel de navegación
   .nav {
-    display: flex; // Lo mantenemos como flex para alinear los enlaces
+    display: flex;
     position: fixed;
     top: 0;
     right: 0;
@@ -149,20 +153,41 @@ html[data-theme='light'] .theme-toggle {
     background-color: rgba(var(--color-header-bg-rgb), 0.95);
     backdrop-filter: blur(10px);
     z-index: 999;
-
-    // 1. Oculto fuera de la pantalla por defecto
     transform: translateX(100%);
     transition: transform 0.4s ease-in-out;
   }
 
-  // Cuando el BODY tiene la clase...
+  .nav__list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 3rem;
+  }
+
+  // Estado inicial de los enlaces (ocultos)
+  .nav__link {
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  // Cuando el menú está abierto
   body.mobile-nav-open {
-    // 2. El panel se desliza a la vista
+    // El panel se desliza a la vista
     .nav {
       transform: translateX(0);
     }
 
-    // 3. La animación de la 'X' (sin cambios)
+    // Los enlaces se hacen visibles con un retraso aplicado por JS
+    .nav__link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    // La hamburguesa se anima a "X"
     .nav-toggle {
       .hamburger {
         background-color: transparent;
@@ -174,20 +199,6 @@ html[data-theme='light'] .theme-toggle {
         transform: translateY(0) rotate(-45deg);
       }
     }
-  }
-
-  // Estilos para la lista y los enlaces (sin cambios)
-  .nav__list {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    gap: 3rem;
-  }
-
-  .nav__link {
-    font-size: 1.5rem;
   }
 }
 

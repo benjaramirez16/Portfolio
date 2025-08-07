@@ -46,5 +46,8 @@
   "modal_feature_2": "Animaciones de entrada con Intersection Observer.",
   "modal_feature_3": "Galería de imágenes interactiva.",
   "modal_feature_4": "Formulario de contacto funcional con Formspree.",
-  "modal_button_site": "Ver Sitio"
+  "modal_button_site": "Ver Sitio",
+  "footer_desc": "Desarrollador Web Frontend enfocado en crear experiencias digitales atractivas y funcionales.",
+  "footer_nav_title": "Navegación",
+  "footer_social_title": "Social"
 }

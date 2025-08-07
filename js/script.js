@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   // ===================================================================
-  // INICIALIZACIÓN DEL MENÚ MÓVIL
+  // INICIALIZACIÓN DEL MENÚ MÓVIL (CON ANIMACIÓN CORREGIDA)
   // ===================================================================
   function initMobileNav() {
     const navToggle = document.querySelector('.nav-toggle');
@@ -16,11 +16,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navToggle.addEventListener('click', () => {
       body.classList.toggle('mobile-nav-open');
+
+      if (body.classList.contains('mobile-nav-open')) {
+        // Si el menú SE ABRE, aplicamos el delay escalonado
+        navLinks.forEach((link, index) => {
+          // LA CORRECCIÓN: Añadimos un retraso base de 250ms
+          // para darle tiempo al panel a que entre en la pantalla.
+          link.style.transitionDelay = `${250 + index * 75}ms`; // 250ms base + 75ms por cada link
+        });
+      } else {
+        // Si el menú SE CIERRA, quitamos el delay para que los enlaces
+        // desaparezcan al instante junto con el panel.
+        navLinks.forEach(link => {
+          link.style.transitionDelay = '0ms';
+        });
+      }
     });
 
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         body.classList.remove('mobile-nav-open');
+        // Reseteamos los delays al cerrar con un clic también
+        navLinks.forEach(link => {
+          link.style.transitionDelay = '0ms';
+        });
       });
     });
   }

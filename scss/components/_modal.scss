@@ -1,4 +1,4 @@
-// Estilos para el <dialog> modal (Versión Final y Pulida)
+// Estilos para el <dialog> modal (Versión Final y Corregida)
 .modal {
     padding: 0;
     border: none;
@@ -93,6 +93,7 @@
 }
 
 .modal__details {
+    margin-top: $spacing-unit * 2.5;
     margin-bottom: $spacing-unit * 3;
 }
 
@@ -118,7 +119,33 @@
     }
 }
 
-// Estilos para la galería Swiper
+.modal__features-title {
+    font-family: $font-primary;
+    font-size: 1.1rem;
+    color: var(--color-text-primary); 
+    margin-top: 0;
+    margin-bottom: $spacing-unit * 1.5;
+}
+
+.modal__features-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 $spacing-unit * 3;
+    color: var(--color-text-secondary);
+    li {
+        position: relative;
+        padding-left: $spacing-unit * 2;
+        margin-bottom: $spacing-unit * 0.5;
+        &::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+    }
+}
+
 .swiper {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -138,7 +165,7 @@
     }
 }
 .swiper-button-next, .swiper-button-prev, .swiper-pagination-bullet {
-    --swiper-theme-color: #fff; // Forzamos el color blanco para mejor contraste
+    --swiper-theme-color: #fff;
 }
 .swiper-button-next, .swiper-button-prev {
     background-color: rgba(var(--color-background-rgb, 18, 18, 18), 0.3);

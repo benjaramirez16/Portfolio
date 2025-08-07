@@ -328,31 +328,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // LÓGICA DEL BLOG (CON TRADUCCIÓN DE METADATOS)
+  // LÓGICA DEL BLOG (CON CORRECCIÓN DE SCROLL EN MODAL)
   // ===================================================================
   async function initBlog(lang) {
       const blogGrid = document.getElementById('blog-grid');
-      if (!blogGrid) return;
+      const articleModal = document.getElementById('article-modal');
+      const articleContent = document.getElementById('article-content');
+      const body = document.body;
 
-      blogGrid.innerHTML = ''; // Limpiamos la grilla
+      if (!blogGrid || !articleModal) return;
+
+      blogGrid.innerHTML = '';
 
       const postFiles = [
           'articulo-1.md', 'articulo-2.md', 'articulo-3.md',
           'articulo-4.md', 'articulo-5.md', 'articulo-6.md'
       ];
 
-      // Diccionario para las traducciones de los metadatos
       const metaTranslations = {
-          es: {
-              of: 'de',
-              readingTime: 'Lectura de',
-              min: 'min'
-          },
-          en: {
-              of: 'of',
-              readingTime: 'min read',
-              min: '' // En inglés, "min" va después del número
-          }
+          es: { of: 'de', readingTime: 'Lectura de', min: 'min' },
+          en: { of: 'of', readingTime: 'min read', min: '' }
       };
 
       for (const file of postFiles) {
@@ -374,7 +369,6 @@ document.addEventListener('DOMContentLoaded', () => {
               const dateString = dateMatch ? dateMatch[1] : '';
 
               const date = new Date(dateString);
-              // Usamos el idioma actual para formatear el mes y corregimos el formato de la fecha
               const month = date.toLocaleString(lang === 'en' ? 'en-US' : 'es-ES', { month: 'long', timeZone: 'UTC' });
               const formattedDate = `${date.getUTCDate()} ${metaTranslations[lang].of} ${month} ${metaTranslations[lang].of} ${date.getUTCFullYear()}`;
 
@@ -382,7 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
               const wordsPerMinute = 200;
               const readingTime = Math.ceil(wordCount / wordsPerMinute);
               
-              // Construimos la frase del tiempo de lectura según el idioma
               const readingTimeText = lang === 'en' 
                   ? `${readingTime} ${metaTranslations[lang].readingTime}` 
                   : `${metaTranslations[lang].readingTime} ${readingTime} ${metaTranslations[lang].min}`;
@@ -404,22 +397,33 @@ document.addEventListener('DOMContentLoaded', () => {
               
               articleCard.addEventListener('click', (e) => {
                   e.preventDefault();
-                  const articleModal = document.getElementById('article-modal');
-                  const articleContent = document.getElementById('article-content');
                   if (typeof marked !== 'undefined') {
                       articleContent.innerHTML = marked.parse(contentMarkdown);
                   } else {
                       articleContent.textContent = "Error al cargar el artículo.";
                   }
                   articleModal.showModal();
-                  document.body.classList.add('no-scroll');
+                  body.classList.add('no-scroll');
               });
+
               blogGrid.appendChild(articleCard);
           } catch (error) {
               console.error(`Error cargando el artículo ${file}:`, error);
           }
       }
-    }
+      
+      // Añadimos el listener para el evento 'close' del modal
+      articleModal.addEventListener('close', () => {
+          body.classList.remove('no-scroll');
+      });
+
+      // Mantenemos la lógica para cerrar al hacer clic en el fondo
+      articleModal.addEventListener('click', (e) => {
+          if(e.target === articleModal) {
+              articleModal.close();
+          }
+      });
+  }
 
   // ===================================================================
   // LÓGICA DE INTERNACIONALIZACIÓN (VERSIÓN FINAL)

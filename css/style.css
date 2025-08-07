@@ -327,6 +327,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .modal__details {
+  margin-top: 2.5rem;
   margin-bottom: 3rem;
 }
 
@@ -350,6 +351,33 @@ body::-webkit-scrollbar-thumb {
 }
 .modal__detail-item span {
   color: var(--color-text-secondary);
+}
+
+.modal__features-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.modal__features-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 3rem;
+  color: var(--color-text-secondary);
+}
+.modal__features-list li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.5rem;
+}
+.modal__features-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 .swiper {

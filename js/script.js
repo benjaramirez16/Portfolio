@@ -423,6 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
               articleModal.close();
           }
       });
+      if(!isTouchDevice) { initMagneticEffect(); }
   }
 
   // ===================================================================

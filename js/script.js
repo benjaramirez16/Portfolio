@@ -309,28 +309,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // LÓGICA DEL BLOG (CON FECHAS CORREGIDAS A PRUEBA DE TIMEZONES)
+  // LÓGICA DEL BLOG (CON TRADUCCIÓN DE METADATOS)
   // ===================================================================
-  async function initBlog() {
+  async function initBlog(lang) {
       const blogGrid = document.getElementById('blog-grid');
-      const articleModal = document.getElementById('article-modal');
-      const articleContent = document.getElementById('article-content');
-      const body = document.body;
+      if (!blogGrid) return;
 
-      if (!blogGrid || !articleModal) return;
+      blogGrid.innerHTML = ''; // Limpiamos la grilla
 
       const postFiles = [
           'articulo-1.md', 'articulo-2.md', 'articulo-3.md',
           'articulo-4.md', 'articulo-5.md', 'articulo-6.md'
       ];
 
+      // Diccionario para las traducciones de los metadatos
+      const metaTranslations = {
+          es: {
+              of: 'de',
+              readingTime: 'Lectura de',
+              min: 'min'
+          },
+          en: {
+              of: 'of',
+              readingTime: 'min read',
+              min: '' // En inglés, "min" va después del número
+          }
+      };
+
       for (const file of postFiles) {
           try {
-              const response = await fetch(`posts/${file}`);
+              const response = await fetch(`posts/${lang}/${file}`);
               if (!response.ok) continue;
               
               const markdown = await response.text();
-
               const frontmatterMatch = markdown.match(/---([\s\S]*?)---/);
               const frontmatterText = frontmatterMatch ? frontmatterMatch[1] : '';
               const contentMarkdown = markdown.replace(/---[\s\S]*?---/, '').trim();
@@ -343,25 +354,30 @@ document.addEventListener('DOMContentLoaded', () => {
               const excerpt = excerptMatch ? excerptMatch[1] : '...';
               const dateString = dateMatch ? dateMatch[1] : '';
 
-              
-              // Para evitar problemas de zona horaria, procesamos la fecha como UTC.
               const date = new Date(dateString);
-              const formattedDate = `${date.getUTCDate()} de ${date.toLocaleString('es-ES', { month: 'long', timeZone: 'UTC' })} de ${date.getUTCFullYear()}`;
+              // Usamos el idioma actual para formatear el mes y corregimos el formato de la fecha
+              const month = date.toLocaleString(lang === 'en' ? 'en-US' : 'es-ES', { month: 'long', timeZone: 'UTC' });
+              const formattedDate = `${date.getUTCDate()} ${metaTranslations[lang].of} ${month} ${metaTranslations[lang].of} ${date.getUTCFullYear()}`;
 
               const wordCount = contentMarkdown.split(/\s+/).length;
               const wordsPerMinute = 200;
               const readingTime = Math.ceil(wordCount / wordsPerMinute);
+              
+              // Construimos la frase del tiempo de lectura según el idioma
+              const readingTimeText = lang === 'en' 
+                  ? `${readingTime} ${metaTranslations[lang].readingTime}` 
+                  : `${metaTranslations[lang].readingTime} ${readingTime} ${metaTranslations[lang].min}`;
 
               const articleCard = document.createElement('a');
               articleCard.className = 'article-card magnetic';
-              articleCard.href = `posts/${file}`;
+              articleCard.href = `posts/${lang}/${file}`;
               articleCard.innerHTML = `
                   <div class="article-card__content">
                       <h3 class="article-card__title">${title}</h3>
                       <div class="article-card__meta">
                           <span>${formattedDate}</span>
                           <span>·</span>
-                          <span>Lectura de ${readingTime} min</span>
+                          <span>${readingTimeText}</span>
                       </div>
                       <p class="article-card__excerpt">${excerpt}</p>
                   </div>
@@ -369,35 +385,25 @@ document.addEventListener('DOMContentLoaded', () => {
               
               articleCard.addEventListener('click', (e) => {
                   e.preventDefault();
+                  const articleModal = document.getElementById('article-modal');
+                  const articleContent = document.getElementById('article-content');
                   if (typeof marked !== 'undefined') {
                       articleContent.innerHTML = marked.parse(contentMarkdown);
                   } else {
-                      console.error("Librería 'marked' no cargada.");
-                      articleContent.textContent = "Error al dar formato al artículo.";
+                      articleContent.textContent = "Error al cargar el artículo.";
                   }
                   articleModal.showModal();
-                  body.classList.add('no-scroll');
+                  document.body.classList.add('no-scroll');
               });
-
               blogGrid.appendChild(articleCard);
-
           } catch (error) {
               console.error(`Error cargando el artículo ${file}:`, error);
           }
       }
-      
-      articleModal.addEventListener('close', () => {
-          body.classList.remove('no-scroll');
-      });
-      articleModal.addEventListener('click', (e) => {
-          if(e.target === articleModal) {
-              articleModal.close();
-          }
-      });
-  }
+    }
 
   // ===================================================================
-  // LÓGICA DE INTERNACIONALIZACIÓN (i18n)
+  // LÓGICA DE INTERNACIONALIZACIÓN (VERSIÓN FINAL)
   // ===================================================================
   async function initI18n() {
     const langSwitcher = document.querySelector('.lang-switcher');
@@ -406,42 +412,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = langSwitcher.querySelectorAll('.lang-switcher__button');
     let translations = {};
 
-    async function fetchTranslations(lang) {
+    const fetchTranslations = async (lang) => {
         try {
             const response = await fetch(`lang/${lang}.json`);
-            if (!response.ok) throw new Error('No se pudo cargar el archivo de idioma.');
+            if (!response.ok) throw new Error('Language file not found');
             return await response.json();
         } catch (error) {
-            console.error('Error al cargar traducciones:', error);
+            console.error('Error fetching translations:', error);
             return {};
         }
-    }
+    };
 
-    function updateContent() {
+    const updateContent = () => {
         document.querySelectorAll('[data-key]').forEach(element => {
             const key = element.getAttribute('data-key');
             if (translations[key]) {
-                // Usamos innerHTML para que renderice el &copy; del footer
                 element.innerHTML = translations[key];
             }
         });
-        // Volvemos a llamar a la función de tipeo para que use el nuevo texto
-        initTypingEffect();
-    }
+    };
 
-    async function setLanguage(lang) {
+    const setLanguage = async (lang) => {
         localStorage.setItem('language', lang);
         translations = await fetchTranslations(lang);
-        updateContent();
-
-        // Actualiza el estado activo de los botones
+        
+        document.documentElement.setAttribute('lang', lang);
         langButtons.forEach(btn => {
             btn.classList.toggle('is-active', btn.dataset.lang === lang);
         });
 
-        // Actualiza el atributo lang del HTML
-        document.documentElement.setAttribute('lang', lang);
-    }
+        updateContent();
+        initBlog(lang); // <-- Llama al blog con el idioma actual
+        initTypingEffect();
+    };
 
     langButtons.forEach(button => {
         button.addEventListener('click', (e) => {
@@ -449,7 +452,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Carga el idioma inicial
     const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
     setLanguage(initialLang);
   }

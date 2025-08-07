@@ -103,7 +103,7 @@
                             <p class="skill-card__name">HTML5</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Estructura semántica y accesible para una web sólida y bien organizada.</p>
+                            <p class="skill-card__description" data-key="skill_html_desc">Estructura semántica y accesible para una web sólida y bien organizada.</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                             <p class="skill-card__name">CSS3</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Estilos modernos, layouts complejos con Flexbox y Grid, y animaciones fluidas.</p>
+                            <p class="skill-card__description" data-key="skill_css_desc">Estilos modernos, layouts complejos con Flexbox y Grid, y animaciones fluidas.</p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                             <p class="skill-card__name">SASS</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Uso de preprocesadores para un código CSS escalable, modular y fácil de mantener.</p>
+                            <p class="skill-card__description" data-key="skill_sass_desc">Uso de preprocesadores para un código CSS escalable, modular y fácil de mantener.</p>
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                             <p class="skill-card__name">JavaScript</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Interactividad y dinamismo del lado del cliente, manipulación del DOM y lógica de UI.</p>
+                            <p class="skill-card__description" data-key="skill_js_desc">Interactividad y dinamismo del lado del cliente, manipulación del DOM y lógica de UI.</p>
                         </div>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                             <p class="skill-card__name">Git</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Control de versiones para un desarrollo seguro, colaborativo y profesional.</p>
+                            <p class="skill-card__description" data-key="skill_git_desc">Control de versiones para un desarrollo seguro, colaborativo y profesional.</p>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                             <p class="skill-card__name">GitHub</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Flujo de trabajo con repositorios remotos, ramas, pull requests y code reviews.</p>
+                            <p class="skill-card__description" data-key="skill_github_desc">Flujo de trabajo con repositorios remotos, ramas, pull requests y code reviews.</p>
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                             <p class="skill-card__name">Responsive</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Diseños que se adaptan y funcionan perfectamente en cualquier dispositivo y tamaño de pantalla.</p>
+                            <p class="skill-card__description" data-key="skill_responsive_desc">Diseños que se adaptan y funcionan perfectamente en cualquier dispositivo y tamaño de pantalla.</p>
                         </div>
                     </div>
                 </div>
@@ -184,16 +184,16 @@
                     <div class="skill-card__inner">
                         <div class="skill-card__front">
                             <i class="fa-solid fa-universal-access skill-card__icon"></i>
-                            <p class="skill-card__name">Accesibilidad</p>
+                            <p class="skill-card__name" data-key="skill_a11y_name">Accesibilidad</p>
                         </div>
                         <div class="skill-card__back">
-                            <p class="skill-card__description">Creación de experiencias web inclusivas y usables para todos los usuarios (WCAG).</p>
+                            <p class="skill-card__description" data-key="skill_a11y_desc">Creación de experiencias web inclusivas y usables para todos los usuarios (WCAG).</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="skills__footer">
-                <p class="skills__footer-text">Estas son algunas de las tecnologías y herramientas que utilizo para crear experiencias web excepcionales.</p>
+                <p class="skills__footer-text" data-key="skills_footer_text">Estas son algunas de las tecnologías y herramientas que utilizo para crear experiencias web excepcionales.</p>
             </div>
         </section>
 
@@ -207,8 +207,8 @@
                         </a>
                     </div>
                     <div class="project-card__content">
-                        <h3 class="project-card__title">Nudos Del Alma</h3>
-                        <p class="project-card__description">
+                        <h3 class="project-card__title" data-key="project_nudos_title">Nudos Del Alma</h3>
+                        <p class="project-card__description" data-key="project_nudos_desc">
                             Una landing page totalmente responsiva para un emprendimiento de macramé. Construida con un enfoque en la semántica HTML, una arquitectura SASS profesional y un código JavaScript limpio para las interacciones.
                         </p>
                         <ul class="project-card__tech-list">
@@ -219,10 +219,10 @@
                         </ul>
                         <div class="project-card__links">
                             <button class="button button--secondary magnetic js-open-modal">
-                                <i class="fa-solid fa-eye"></i> Ver Detalles
+                                <i class="fa-solid fa-eye"></i> <span data-key="project_card_button_details">Ver Detalles</span>
                             </button>
                             <a href="https://github.com/benjaramirez16/nudos-del-alma-website" class="button button--secondary magnetic" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-github"></i> Ver Código
+                                <i class="fa-brands fa-github"></i> <span data-key="project_card_button_code">Ver Código</span>
                             </a>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
         <section id="contacto" class="contact section-padding hidden">
             <div class="contact__container">
                 <h2 class="section-title"><span data-key="contact_title">Hablemos</span></h2>
-                <p class="contact__description">
+                <p class="contact__description" data-key="contact_description">
                     ¿Tienes una pregunta o una propuesta o simplemente quieres saludar? Adelante.
                 </p>
                 
@@ -288,31 +288,43 @@
             <form method="dialog" class="modal__close-form">
                 <button class="modal__close" aria-label="Cerrar ventana">&times;</button>
             </form>
-            
-            <div class="modal__image-container">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="images/nudos-screenshot-1.webp" alt="Captura de pantalla 1"></div>
-                        <div class="swiper-slide"><img src="images/nudos-screenshot-2.webp" alt="Captura de pantalla 2"></div>
-                        <div class="swiper-slide"><img src="images/nudos-screenshot-3.webp" alt="Captura de pantalla 3"></div>
+            <div class="modal__grid">
+                <div class="modal__image-container">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/nudos-screenshot-1.webp" alt="Captura de pantalla 1"></div>
+                            <div class="swiper-slide"><img src="images/nudos-screenshot-2.webp" alt="Captura de pantalla 2"></div>
+                            <div class="swiper-slide"><img src="images/nudos-screenshot-3.webp" alt="Captura de pantalla 3"></div>
+                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-pagination"></div>
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
-            </div>
-
-            <div class="modal__text-container">
-                <h3 class="modal__title">Nudos Del Alma</h3>
-                <p class="modal__description">Una landing page totalmente responsiva para un emprendimiento de macramé, construida con un enfoque en la semántica HTML y una arquitectura SASS profesional.</p>
-                <div class="modal__details">
-                    <div class="modal__detail-item"><i class="fa-solid fa-user"></i><strong>Rol:</strong><span>Desarrollo Frontend</span></div>
-                    <div class="modal__detail-item"><i class="fa-solid fa-code"></i><strong>Tecnologías:</strong><span>HTML, SASS, JS</span></div>
-                    <div class="modal__detail-item"><i class="fa-solid fa-clock"></i><strong>Duración:</strong><span>2 Semanas</span></div>
-                </div>
-                <div class="project-card__links">
-                    <a href="https://nudosdelalma.rf.gd/" class="button button--secondary magnetic" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Sitio</a>
-                    <a href="https://github.com/benjaramirez16/nudos-del-alma-website" class="button button--secondary magnetic" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Ver Código</a>
+                <div class="modal__text-container">
+                    <h3 class="modal__title" data-key="project_nudos_title">Nudos Del Alma</h3>
+                    <p class="modal__description" data-key="project_nudos_desc"></p>
+                    <div class="modal__details">
+                        <div class="modal__detail-item"><i class="fa-solid fa-user"></i><strong data-key="modal_rol"></strong><span data-key="modal_rol_desc"></span></div>
+                        <div class="modal__detail-item"><i class="fa-solid fa-briefcase"></i><strong data-key="modal_client"></strong><span data-key="modal_client_desc"></span></div>
+                        <div class="modal__detail-item"><i class="fa-solid fa-code"></i><strong data-key="modal_tech"></strong><span>HTML, SASS, JS</span></div>
+                        <div class="modal__detail-item"><i class="fa-solid fa-clock"></i><strong data-key="modal_duration"></strong><span data-key="modal_duration_desc"></span></div>
+                    </div>
+                    <h4 class="modal__features-title" data-key="modal_features_title"></h4>
+                    <ul class="modal__features-list">
+                        <li data-key="modal_feature_1"></li>
+                        <li data-key="modal_feature_2"></li>
+                        <li data-key="modal_feature_3"></li>
+                        <li data-key="modal_feature_4"></li>
+                    </ul>
+                    <div class="project-card__links">
+                        <a href="https://nudosdelalma.rf.gd/" class="button button--secondary magnetic" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-key="modal_button_site"></span>
+                        </a>
+                        <a href="https://github.com/benjaramirez16/nudos-del-alma-website" class="button button--secondary magnetic" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-github"></i> <span data-key="project_card_button_code"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

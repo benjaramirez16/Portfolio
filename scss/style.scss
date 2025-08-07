@@ -10,6 +10,7 @@
 @import 'components/buttons';
 @import 'components/back-to-top';
 @import 'components/modal';
+@import 'components/article-modal';
 
 // 4. Layout: Estructura principal como header y footer.
 @import 'layout/header';
@@ -23,3 +24,4 @@
 @import 'pages/contact';
 @import 'pages/theme-overrides';
 @import 'pages/404';
+@import 'pages/blog';

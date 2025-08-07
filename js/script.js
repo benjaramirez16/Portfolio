@@ -351,6 +351,94 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
+  // LÓGICA DEL BLOG (CON FECHAS CORREGIDAS A PRUEBA DE TIMEZONES)
+  // ===================================================================
+  async function initBlog() {
+      const blogGrid = document.getElementById('blog-grid');
+      const articleModal = document.getElementById('article-modal');
+      const articleContent = document.getElementById('article-content');
+      const body = document.body;
+
+      if (!blogGrid || !articleModal) return;
+
+      const postFiles = [
+          'articulo-1.md', 'articulo-2.md', 'articulo-3.md',
+          'articulo-4.md', 'articulo-5.md', 'articulo-6.md'
+      ];
+
+      for (const file of postFiles) {
+          try {
+              const response = await fetch(`posts/${file}`);
+              if (!response.ok) continue;
+              
+              const markdown = await response.text();
+
+              const frontmatterMatch = markdown.match(/---([\s\S]*?)---/);
+              const frontmatterText = frontmatterMatch ? frontmatterMatch[1] : '';
+              const contentMarkdown = markdown.replace(/---[\s\S]*?---/, '').trim();
+
+              const titleMatch = frontmatterText.match(/title: "(.*?)"/);
+              const excerptMatch = frontmatterText.match(/excerpt: "(.*?)"/);
+              const dateMatch = frontmatterText.match(/date: "(.*?)"/);
+
+              const title = titleMatch ? titleMatch[1] : 'Sin Título';
+              const excerpt = excerptMatch ? excerptMatch[1] : '...';
+              const dateString = dateMatch ? dateMatch[1] : '';
+
+              
+              // Para evitar problemas de zona horaria, procesamos la fecha como UTC.
+              const date = new Date(dateString);
+              const formattedDate = `${date.getUTCDate()} de ${date.toLocaleString('es-ES', { month: 'long', timeZone: 'UTC' })} de ${date.getUTCFullYear()}`;
+
+              const wordCount = contentMarkdown.split(/\s+/).length;
+              const wordsPerMinute = 200;
+              const readingTime = Math.ceil(wordCount / wordsPerMinute);
+
+              const articleCard = document.createElement('a');
+              articleCard.className = 'article-card magnetic';
+              articleCard.href = `posts/${file}`;
+              articleCard.innerHTML = `
+                  <div class="article-card__content">
+                      <h3 class="article-card__title">${title}</h3>
+                      <div class="article-card__meta">
+                          <span>${formattedDate}</span>
+                          <span>·</span>
+                          <span>Lectura de ${readingTime} min</span>
+                      </div>
+                      <p class="article-card__excerpt">${excerpt}</p>
+                  </div>
+              `;
+              
+              articleCard.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  if (typeof marked !== 'undefined') {
+                      articleContent.innerHTML = marked.parse(contentMarkdown);
+                  } else {
+                      console.error("Librería 'marked' no cargada.");
+                      articleContent.textContent = "Error al dar formato al artículo.";
+                  }
+                  articleModal.showModal();
+                  body.classList.add('no-scroll');
+              });
+
+              blogGrid.appendChild(articleCard);
+
+          } catch (error) {
+              console.error(`Error cargando el artículo ${file}:`, error);
+          }
+      }
+      
+      articleModal.addEventListener('close', () => {
+          body.classList.remove('no-scroll');
+      });
+      articleModal.addEventListener('click', (e) => {
+          if(e.target === articleModal) {
+              articleModal.close();
+          }
+      });
+  }
+
+  // ===================================================================
   // LLAMADAS A TODAS LAS FUNCIONES DE INICIALIZACIÓN
   // ===================================================================
   initMobileNav();
@@ -362,4 +450,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTopButton();
   initSoundEffects();
   initProjectModal();
+  initBlog();
 });

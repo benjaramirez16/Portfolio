@@ -1,0 +1,85 @@
+// scss/components/_article-modal.scss
+.article-modal {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: 800px;
+    width: 90%;
+    border-radius: 8px;
+
+    &[open] { animation: fade-in 0.4s ease forwards; }
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        animation: fade-in 0.4s ease forwards;
+    }
+}
+
+.article-modal__content {
+    padding: 2.5rem;
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative; // <-- Importante para el botón de cierre
+}
+
+// Estilos para posicionar el botón de cierre
+.article-modal__content form {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+}
+
+// Estilos para el contenido del artículo (dentro de #article-content)
+#article-content {
+    h2, h3 {
+        font-family: $font-primary;
+        color: var(--color-primary);
+        margin: 2rem 0 1rem;
+        line-height: 1.3;
+    }
+
+    p {
+        line-height: 1.8;
+        color: var(--color-text-secondary);
+        margin-bottom: 1.5rem;
+    }
+
+    strong {
+        color: var(--color-text-primary);
+        font-weight: 500;
+    }
+
+    a {
+        color: var(--color-primary);
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.3s ease;
+
+        &:hover {
+            border-color: var(--color-primary);
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+        li {
+            position: relative;
+            padding-left: 1.5rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.5rem;
+            &::before {
+                content: '•';
+                position: absolute;
+                left: 0;
+                color: var(--color-primary);
+                font-weight: 700;
+            }
+        }
+    }
+}

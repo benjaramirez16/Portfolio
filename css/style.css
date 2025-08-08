@@ -119,6 +119,20 @@ body::-webkit-scrollbar-thumb {
   border: 2px solid var(--color-surface);
 }
 
+.translation-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-background);
+  z-index: 10002;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+}
+.translation-overlay.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
 .section-padding {
   padding: 6rem 2rem;
 }
@@ -649,9 +663,6 @@ html[data-theme=light] .theme-toggle .fa-moon {
   }
   .theme-toggle {
     margin-right: 1.5rem;
-  }
-  .sound-toggle {
-    display: none !important;
   }
   .nav {
     display: flex;

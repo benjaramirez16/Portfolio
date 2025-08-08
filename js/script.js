@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // FUNCIÓN PARA DETECTAR DISPOSITIVOS TÁCTILES
   // ===================================================================
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
+  let currentTypingId = 0; // ID para la animación de tipeo actual
   // ===================================================================
   // INICIALIZACIÓN DEL MENÚ MÓVIL (CON ANIMACIÓN CORREGIDA)
   // ===================================================================
@@ -202,33 +202,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // ===================================================================
-  // EFECTO MÁQUINA DE ESCRIBIR
+  // EFECTO MÁQUINA DE ESCRIBIR (CON CANCELACIÓN)
   // ===================================================================
-  function initTypingEffect() {
+  function initTypingEffect(typingId) {
     const typingText = document.querySelector('.typing-text');
     if (!typingText) return;
-
     const textToType = typingText.innerHTML || "Desarrollador Web Frontend";
-    typingText.textContent = ''; // Aseguramos que esté vacío al inicio
-
+    typingText.textContent = '';
     const heroElements = document.querySelectorAll('.hero-element-hidden');
     let charIndex = 0;
-
     function type() {
+      if (typingId !== currentTypingId) return;
       if (charIndex < textToType.length) {
         typingText.textContent += textToType.charAt(charIndex);
         charIndex++;
         setTimeout(type, 100);
       } else {
-        if (!document.body.classList.contains('instant-load')) {
-          heroElements.forEach(el => {
-            el.classList.add('hero-element-visible');
-            el.classList.remove('hero-element-hidden');
-          });
-        }
+        heroElements.forEach(el => {
+          el.classList.add('hero-element-visible');
+          el.classList.remove('hero-element-hidden');
+        });
       }
     }
-
     if (document.body.classList.contains('instant-load')) {
       typingText.textContent = textToType;
       heroElements.forEach(el => {
@@ -328,106 +323,66 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // LÓGICA DEL BLOG (CON CORRECCIÓN DE SCROLL EN MODAL)
+  // LÓGICA DEL BLOG (CON LIMPIEZA DE GRILLA)
   // ===================================================================
   async function initBlog(lang) {
-      const blogGrid = document.getElementById('blog-grid');
-      const articleModal = document.getElementById('article-modal');
-      const articleContent = document.getElementById('article-content');
-      const body = document.body;
-
-      if (!blogGrid || !articleModal) return;
-
-      blogGrid.innerHTML = '';
-
-      const postFiles = [
-          'articulo-1.md', 'articulo-2.md', 'articulo-3.md',
-          'articulo-4.md', 'articulo-5.md', 'articulo-6.md'
-      ];
-
-      const metaTranslations = {
-          es: { of: 'de', readingTime: 'Lectura de', min: 'min' },
-          en: { of: 'of', readingTime: 'min read', min: '' }
-      };
-
-      for (const file of postFiles) {
-          try {
-              const response = await fetch(`posts/${lang}/${file}`);
-              if (!response.ok) continue;
-              
-              const markdown = await response.text();
-              const frontmatterMatch = markdown.match(/---([\s\S]*?)---/);
-              const frontmatterText = frontmatterMatch ? frontmatterMatch[1] : '';
-              const contentMarkdown = markdown.replace(/---[\s\S]*?---/, '').trim();
-
-              const titleMatch = frontmatterText.match(/title: "(.*?)"/);
-              const excerptMatch = frontmatterText.match(/excerpt: "(.*?)"/);
-              const dateMatch = frontmatterText.match(/date: "(.*?)"/);
-
-              const title = titleMatch ? titleMatch[1] : 'Sin Título';
-              const excerpt = excerptMatch ? excerptMatch[1] : '...';
-              const dateString = dateMatch ? dateMatch[1] : '';
-
-              const date = new Date(dateString);
-              const month = date.toLocaleString(lang === 'en' ? 'en-US' : 'es-ES', { month: 'long', timeZone: 'UTC' });
-              const formattedDate = `${date.getUTCDate()} ${metaTranslations[lang].of} ${month} ${metaTranslations[lang].of} ${date.getUTCFullYear()}`;
-
-              const wordCount = contentMarkdown.split(/\s+/).length;
-              const wordsPerMinute = 200;
-              const readingTime = Math.ceil(wordCount / wordsPerMinute);
-              
-              const readingTimeText = lang === 'en' 
-                  ? `${readingTime} ${metaTranslations[lang].readingTime}` 
-                  : `${metaTranslations[lang].readingTime} ${readingTime} ${metaTranslations[lang].min}`;
-
-              const articleCard = document.createElement('a');
-              articleCard.className = 'article-card magnetic';
-              articleCard.href = `posts/${lang}/${file}`;
-              articleCard.innerHTML = `
-                  <div class="article-card__content">
-                      <h3 class="article-card__title">${title}</h3>
-                      <div class="article-card__meta">
-                          <span>${formattedDate}</span>
-                          <span>·</span>
-                          <span>${readingTimeText}</span>
-                      </div>
-                      <p class="article-card__excerpt">${excerpt}</p>
-                  </div>
-              `;
-              
-              articleCard.addEventListener('click', (e) => {
-                  e.preventDefault();
-                  if (typeof marked !== 'undefined') {
-                      articleContent.innerHTML = marked.parse(contentMarkdown);
-                  } else {
-                      articleContent.textContent = "Error al cargar el artículo.";
-                  }
-                  articleModal.showModal();
-                  body.classList.add('no-scroll');
-              });
-
-              blogGrid.appendChild(articleCard);
-          } catch (error) {
-              console.error(`Error cargando el artículo ${file}:`, error);
-          }
-      }
-      
-      // Añadimos el listener para el evento 'close' del modal
-      articleModal.addEventListener('close', () => {
-          body.classList.remove('no-scroll');
-      });
-
-      // Mantenemos la lógica para cerrar al hacer clic en el fondo
-      articleModal.addEventListener('click', (e) => {
-          if(e.target === articleModal) {
-              articleModal.close();
-          }
-      });
-      if(!isTouchDevice) { initMagneticEffect(); }
+    const blogGrid = document.getElementById('blog-grid');
+    const articleModal = document.getElementById('article-modal');
+    const body = document.body;
+    if (!blogGrid || !articleModal) return;
+    blogGrid.innerHTML = '';
+    const postFiles = ['articulo-1.md','articulo-2.md','articulo-3.md','articulo-4.md','articulo-5.md','articulo-6.md'];
+    const metaTranslations = {
+        es: { of: 'de', readingTime: 'Lectura de', min: 'min' },
+        en: { of: 'of', readingTime: 'min read', min: '' }
+    };
+    for (const file of postFiles) {
+        try {
+            const response = await fetch(`posts/${lang}/${file}`);
+            if (!response.ok) continue;
+            const markdown = await response.text();
+            const frontmatterMatch = markdown.match(/---([\s\S]*?)---/);
+            const frontmatterText = frontmatterMatch ? frontmatterMatch[1] : '';
+            const contentMarkdown = markdown.replace(/---[\s\S]*?---/, '').trim();
+            const titleMatch = frontmatterText.match(/title: "(.*?)"/);
+            const excerptMatch = frontmatterText.match(/excerpt: "(.*?)"/);
+            const dateMatch = frontmatterText.match(/date: "(.*?)"/);
+            const title = titleMatch ? titleMatch[1] : 'Sin Título';
+            const excerpt = excerptMatch ? excerptMatch[1] : '...';
+            const dateString = dateMatch ? dateMatch[1] : '';
+            const date = new Date(dateString);
+            const month = date.toLocaleString(lang === 'en' ? 'en-US' : 'es-ES', { month: 'long', timeZone: 'UTC' });
+            const formattedDate = `${date.getUTCDate()} ${metaTranslations[lang].of} ${month} ${metaTranslations[lang].of} ${date.getUTCFullYear()}`;
+            const wordCount = contentMarkdown.split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / 200);
+            const readingTimeText = lang === 'en' ? `${readingTime} ${metaTranslations[lang].readingTime}` : `${metaTranslations[lang].readingTime} ${readingTime} ${metaTranslations[lang].min}`;
+            const articleCard = document.createElement('a');
+            articleCard.className = 'article-card magnetic';
+            articleCard.href = `posts/${lang}/${file}`;
+            articleCard.innerHTML = `<div class="article-card__content"><h3 class="article-card__title">${title}</h3><div class="article-card__meta"><span>${formattedDate}</span><span>·</span><span>${readingTimeText}</span></div><p class="article-card__excerpt">${excerpt}</p></div>`;
+            articleCard.addEventListener('click', (e) => {
+                e.preventDefault();
+                const articleContent = document.getElementById('article-content');
+                if (typeof marked !== 'undefined') {
+                    articleContent.innerHTML = marked.parse(contentMarkdown);
+                } else {
+                    articleContent.textContent = "Error al cargar el artículo.";
+                }
+                articleModal.showModal();
+                body.classList.add('no-scroll');
+            });
+            blogGrid.appendChild(articleCard);
+        } catch (error) {
+            console.error(`Error cargando el artículo ${file}:`, error);
+        }
+    }
+    if(!isTouchDevice) { initMagneticEffect(); }
+    articleModal.addEventListener('close', () => { body.classList.remove('no-scroll'); });
+    articleModal.addEventListener('click', (e) => { if(e.target === articleModal) { articleModal.close(); } });
   }
 
   // ===================================================================
-  // LÓGICA DE INTERNACIONALIZACIÓN (VERSIÓN FINAL)
+  // LÓGICA DE INTERNACIONALIZACIÓN (CON PROTECCIÓN ANTI-SPAM)
   // ===================================================================
   async function initI18n() {
     const langSwitcher = document.querySelector('.lang-switcher');
@@ -435,49 +390,57 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const langButtons = langSwitcher.querySelectorAll('.lang-switcher__button');
     let translations = {};
+    let isTranslating = false; // El "semáforo"
 
     const fetchTranslations = async (lang) => {
-        try {
-            const response = await fetch(`lang/${lang}.json`);
-            if (!response.ok) throw new Error('Language file not found');
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching translations:', error);
-            return {};
-        }
+      const response = await fetch(`lang/${lang}.json`);
+      if (!response.ok) throw new Error('Language file not found');
+      return await response.json();
     };
 
     const updateContent = () => {
-        document.querySelectorAll('[data-key]').forEach(element => {
-            const key = element.getAttribute('data-key');
-            if (translations[key]) {
-                element.innerHTML = translations[key];
-            }
-        });
+      document.querySelectorAll('[data-key]').forEach(element => {
+        const key = element.getAttribute('data-key');
+        if (translations[key]) {
+          element.innerHTML = translations[key];
+        }
+      });
     };
 
     const setLanguage = async (lang) => {
-        localStorage.setItem('language', lang);
-        translations = await fetchTranslations(lang);
-        
-        document.documentElement.setAttribute('lang', lang);
-        langButtons.forEach(btn => {
-            btn.classList.toggle('is-active', btn.dataset.lang === lang);
-        });
+      if (isTranslating) return; // Si está ocupado, no hace nada
+      isTranslating = true;
+      langSwitcher.classList.add('is-translating'); // Deshabilita botones con CSS
 
-        updateContent();
-        initBlog(lang); // <-- Llama al blog con el idioma actual
-        initTypingEffect();
+      localStorage.setItem('language', lang);
+      translations = await fetchTranslations(lang);
+      
+      document.documentElement.setAttribute('lang', lang);
+      langButtons.forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.lang === lang);
+      });
+
+      updateContent();
+      await initBlog(lang);
+      
+      currentTypingId++;
+      initTypingEffect(currentTypingId);
+
+      isTranslating = false;
+      langSwitcher.classList.remove('is-translating'); // Habilita botones de nuevo
     };
 
     langButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            setLanguage(e.target.dataset.lang);
-        });
+      button.addEventListener('click', (e) => {
+        const newLang = e.target.dataset.lang;
+        if (localStorage.getItem('language') !== newLang) {
+          setLanguage(newLang);
+        }
+      });
     });
 
     const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
-    setLanguage(initialLang);
+    await setLanguage(initialLang);
   }
 
   // ===================================================================
@@ -490,6 +453,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFadeInObserver();
   initBackToTopButton();
   initProjectModal();
-  initBlog();
   initI18n();
 });

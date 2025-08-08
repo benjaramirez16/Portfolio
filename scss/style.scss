@@ -1,27 +1,27 @@
 // 1. Abstracts: Variables, mixins, funciones.
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
 
 // 2. Base styles: Resets, tipografía base, utilidades etc.
-@import 'base/base';
-@import 'base/utilities'; 
+@use 'base/base' as *;
+@use 'base/utilities' as *; 
 
 // 3. Components: Elementos reutilizables como botones.
-@import 'components/buttons';
-@import 'components/back-to-top';
-@import 'components/modal';
-@import 'components/article-modal';
+@use 'components/buttons' as *;
+@use 'components/modal' as *;
+@use 'components/article-modal' as *;
+@use 'components/back-to-top' as *;
 
 // 4. Layout: Estructura principal como header y footer.
-@import 'layout/header';
-@import 'layout/footer';
+@use 'layout/header' as *;
+@use 'layout/footer' as *;
 
 // 5. Pages: Estilos específicos de cada sección de la página.
-@import 'pages/hero';
-@import 'pages/about-me'; 
-@import 'pages/skills';
-@import 'pages/projects';
-@import 'pages/contact';
-@import 'pages/theme-overrides';
-@import 'pages/404';
-@import 'pages/blog';
+@use 'pages/hero' as *;
+@use 'pages/about-me' as *; 
+@use 'pages/skills' as *;
+@use 'pages/projects' as *;
+@use 'pages/contact' as *;
+@use 'pages/theme-overrides' as *;
+@use 'pages/404' as *;
+@use 'pages/blog' as *;

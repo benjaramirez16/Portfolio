@@ -1,3 +1,5 @@
+@use '../abstracts/variables' as *;
+
 .contact {
     background-color: var(--color-background);
     text-align: center;

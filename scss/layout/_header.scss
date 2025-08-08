@@ -1,3 +1,5 @@
+@use '../abstracts/variables' as *;
+
 .header {
     background-color: rgba(var(--color-header-bg-rgb), 0.8);
     backdrop-filter: blur(10px);

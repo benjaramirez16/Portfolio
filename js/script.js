@@ -382,11 +382,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // LÓGICA DE INTERNACIONALIZACIÓN (VERSIÓN FINAL CON CORTINA)
+  // LÓGICA DE INTERNACIONALIZACIÓN (CON CARGA INICIAL CORREGIDA)
   // ===================================================================
   async function initI18n() {
       const langSwitcher = document.querySelector('.lang-switcher');
-      const overlay = document.querySelector('.translation-overlay'); // Seleccionamos la cortina
+      const overlay = document.querySelector('.translation-overlay');
       if (!langSwitcher || !overlay) return;
       
       const langButtons = langSwitcher.querySelectorAll('.lang-switcher__button');
@@ -407,15 +407,13 @@ document.addEventListener('DOMContentLoaded', () => {
           });
       };
 
-      const setLanguage = async (lang) => {
-          // Si la cortina ya está activa, no hacemos nada.
-          if (overlay.classList.contains('is-active')) return;
-
-          // 1. Mostramos la cortina
-          overlay.classList.add('is-active');
-          
-          // 2. Esperamos un momento para que la animación de entrada se vea
-          await new Promise(resolve => setTimeout(resolve, 400));
+      // Le añadimos un parámetro para saber si es la carga inicial
+      const setLanguage = async (lang, isInitialLoad = false) => {
+          // Solo mostramos la cortina si NO es la carga inicial
+          if (!isInitialLoad) {
+              overlay.classList.add('is-active');
+              await new Promise(resolve => setTimeout(resolve, 400));
+          }
 
           localStorage.setItem('language', lang);
           translations = await fetchTranslations(lang);
@@ -428,24 +426,27 @@ document.addEventListener('DOMContentLoaded', () => {
           updateContent();
           await initBlog(lang);
           
-          currentTypingId++; // Usamos el sistema de cancelación para la máquina de escribir
+          currentTypingId++;
           initTypingEffect(currentTypingId);
 
-          // 3. Ocultamos la cortina para revelar el contenido traducido
-          overlay.classList.remove('is-active');
+          // Solo ocultamos la cortina si la llegamos a mostrar
+          if (!isInitialLoad) {
+              overlay.classList.remove('is-active');
+          }
       };
 
       langButtons.forEach(button => {
           button.addEventListener('click', (e) => {
               const newLang = e.target.dataset.lang;
               if (localStorage.getItem('language') !== newLang) {
-                  setLanguage(newLang);
+                  setLanguage(newLang, false); // Aquí pasamos 'false' porque es un clic
               }
           });
       });
 
+      // Carga inicial
       const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
-      await setLanguage(initialLang);
+      await setLanguage(initialLang, true); // Aquí pasamos 'true' porque es la carga inicial
   }
 
   // ===================================================================

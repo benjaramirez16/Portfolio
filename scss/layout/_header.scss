@@ -227,3 +227,8 @@ html[data-theme='light'] .theme-toggle {
 .lang-switcher__separator {
     color: var(--color-text-secondary);
 }
+
+.lang-switcher.is-translating {
+    pointer-events: none;
+    opacity: 0.5;
+}

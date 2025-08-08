@@ -382,65 +382,70 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // LÓGICA DE INTERNACIONALIZACIÓN (CON PROTECCIÓN ANTI-SPAM)
+  // LÓGICA DE INTERNACIONALIZACIÓN (VERSIÓN FINAL CON CORTINA)
   // ===================================================================
   async function initI18n() {
-    const langSwitcher = document.querySelector('.lang-switcher');
-    if (!langSwitcher) return;
-    
-    const langButtons = langSwitcher.querySelectorAll('.lang-switcher__button');
-    let translations = {};
-    let isTranslating = false; // El "semáforo"
-
-    const fetchTranslations = async (lang) => {
-      const response = await fetch(`lang/${lang}.json`);
-      if (!response.ok) throw new Error('Language file not found');
-      return await response.json();
-    };
-
-    const updateContent = () => {
-      document.querySelectorAll('[data-key]').forEach(element => {
-        const key = element.getAttribute('data-key');
-        if (translations[key]) {
-          element.innerHTML = translations[key];
-        }
-      });
-    };
-
-    const setLanguage = async (lang) => {
-      if (isTranslating) return; // Si está ocupado, no hace nada
-      isTranslating = true;
-      langSwitcher.classList.add('is-translating'); // Deshabilita botones con CSS
-
-      localStorage.setItem('language', lang);
-      translations = await fetchTranslations(lang);
+      const langSwitcher = document.querySelector('.lang-switcher');
+      const overlay = document.querySelector('.translation-overlay'); // Seleccionamos la cortina
+      if (!langSwitcher || !overlay) return;
       
-      document.documentElement.setAttribute('lang', lang);
-      langButtons.forEach(btn => {
-        btn.classList.toggle('is-active', btn.dataset.lang === lang);
+      const langButtons = langSwitcher.querySelectorAll('.lang-switcher__button');
+      let translations = {};
+
+      const fetchTranslations = async (lang) => {
+          const response = await fetch(`lang/${lang}.json`);
+          if (!response.ok) throw new Error('Language file not found');
+          return await response.json();
+      };
+
+      const updateContent = () => {
+          document.querySelectorAll('[data-key]').forEach(element => {
+              const key = element.getAttribute('data-key');
+              if (translations[key]) {
+                  element.innerHTML = translations[key];
+              }
+          });
+      };
+
+      const setLanguage = async (lang) => {
+          // Si la cortina ya está activa, no hacemos nada.
+          if (overlay.classList.contains('is-active')) return;
+
+          // 1. Mostramos la cortina
+          overlay.classList.add('is-active');
+          
+          // 2. Esperamos un momento para que la animación de entrada se vea
+          await new Promise(resolve => setTimeout(resolve, 400));
+
+          localStorage.setItem('language', lang);
+          translations = await fetchTranslations(lang);
+          
+          document.documentElement.setAttribute('lang', lang);
+          langButtons.forEach(btn => {
+              btn.classList.toggle('is-active', btn.dataset.lang === lang);
+          });
+
+          updateContent();
+          await initBlog(lang);
+          
+          currentTypingId++; // Usamos el sistema de cancelación para la máquina de escribir
+          initTypingEffect(currentTypingId);
+
+          // 3. Ocultamos la cortina para revelar el contenido traducido
+          overlay.classList.remove('is-active');
+      };
+
+      langButtons.forEach(button => {
+          button.addEventListener('click', (e) => {
+              const newLang = e.target.dataset.lang;
+              if (localStorage.getItem('language') !== newLang) {
+                  setLanguage(newLang);
+              }
+          });
       });
 
-      updateContent();
-      await initBlog(lang);
-      
-      currentTypingId++;
-      initTypingEffect(currentTypingId);
-
-      isTranslating = false;
-      langSwitcher.classList.remove('is-translating'); // Habilita botones de nuevo
-    };
-
-    langButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        const newLang = e.target.dataset.lang;
-        if (localStorage.getItem('language') !== newLang) {
-          setLanguage(newLang);
-        }
-      });
-    });
-
-    const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
-    await setLanguage(initialLang);
+      const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
+      await setLanguage(initialLang);
   }
 
   // ===================================================================

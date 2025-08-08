@@ -135,17 +135,13 @@ body::-webkit-scrollbar-thumb {
   border: 2px solid var(--color-surface); // Un pequeño borde del color del riel
 }
 
-// Estilos para la cortina de transición de idioma
 .translation-overlay {
     position: fixed;
-    inset: 0; // top, right, bottom, left: 0
+    inset: 0;
     background-color: var(--color-background);
-    z-index: 10002; // Por encima de todo
-    
-    // Oculto por defecto
+    z-index: 10004; // El z-index más alto de todos
     opacity: 0;
     pointer-events: none;
-    
     transition: opacity 0.4s ease-in-out;
 
     &.is-active {

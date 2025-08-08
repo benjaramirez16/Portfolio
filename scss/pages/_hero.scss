@@ -30,10 +30,11 @@
     }
 }
 
-// Regla corregida y más específica para el título
+// scss/pages/_hero.scss
+
 h1.hero__title {
     font-family: $font-primary;
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
     font-weight: 700;
     color: var(--color-text-primary);
     margin-top: 0;

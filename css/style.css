@@ -1081,6 +1081,7 @@ h1.hero__title {
   -o-object-fit: contain;
      object-fit: contain;
   transition: transform 0.4s ease;
+  border-radius: 4px;
 }
 
 .project-card:hover .project-card__image img {
